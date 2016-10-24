@@ -12,5 +12,17 @@
 */
 
 Route::get('/', function () {
+
     return view('welcome');
 });
+
+Route::get('/social/google', [
+        'as' => 'socialite.auth',
+        'uses' => 'UserController@getSocialAuth'
+    ]
+);
+
+Route::get('/social/google/callback', [
+    'as' => 'admin.callback',
+    'uses' => 'UserController@getCallback',
+]);

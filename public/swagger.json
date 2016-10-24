@@ -1,0 +1,36 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Websters API",
+    "version": "0.0.1"
+  },
+  "paths": {
+    "/api/v1/users": {
+      "get": {
+        "summary": "get users",
+        "responses": {
+          "200": {
+            "description": "Get all users"
+          },
+          "default": {
+            "description": "an \"unexpected\" error"
+          }
+        }
+      }
+    },
+    "/api/v1/users/2": {
+      "get": {
+        "summary": "get FFF",
+        "responses": {
+          "200": {
+            "description": "Get FFF"
+          },
+          "default": {
+            "description": "an \"unexpected\" error"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}
