@@ -23,7 +23,7 @@ class UserController extends Controller
 
         $users  = User::all();
 
-        return response($users)->header('Authorization', 'Bearer ' . $token);
+        return response($users)->header('Authorization', '12312');
 
     }
 
