@@ -21,15 +21,10 @@ class UserController extends Controller
 
     public function getUsers( ){
 
-       
-            $users  = User::all();
-      
+        $users  = User::all();
 
-        
-        return Response::json([
-            'data' => $users
-        ], 200);
-        
+        return response($users)->header('Authorization', 'Bearer ' . $token);
+
     }
 
     /**
