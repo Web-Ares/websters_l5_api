@@ -36,9 +36,9 @@ return [
     ],
 
     'google' => [
-        'client_id' => '682633282879-tjgggggacu9n65fm73a734krafjd2qvt.apps.googleusercontent.com',
-        'client_secret' => 'TaHaQr4MgjMvU2Eltl15CaOI',
-        'redirect' => 'http://new-project.com/social/google/callback',
+        'client_id' => '394869339053-jth4hsd3h5483pjgrsdpbn59vlsgqb40.apps.googleusercontent.com',
+        'client_secret' => 'bKqBgPc2f6N2ggvJy6w0bkJZ',
+        'redirect' => 'http://websters-l5-api.com/social/google/callback',
     ],
 
 ];

@@ -23,7 +23,7 @@ class UserController extends Controller
 
         $users  = User::all();
 
-        return response($users)->header('Authorization', '12312');
+        return response()->json($users);
 
     }
 
@@ -31,6 +31,7 @@ class UserController extends Controller
      * @SWG\Get(
      *   path="/api/v1/users",
      *   summary="get users",
+     *     description="Get Users request",
      *   @SWG\Response(
      *     response=200,
      *     description="Get all users"
@@ -38,7 +39,12 @@ class UserController extends Controller
      *   @SWG\Response(
      *     response="default",
      *     description="an ""unexpected"" error"
-     *   )
+     *   ),
+     * @SWG\Parameter(
+         type="string",
+         name="Authorization",
+         in="header",
+         required=true)
      * )
      */
 
@@ -60,11 +66,18 @@ class UserController extends Controller
 
     public function getCallback( Request $request )
     {
-        dd($request);
-
+        
         $user = Socialite::driver('google')->user();
 
         dd($user);
+        
+    }
+
+    
+    public function getLogin(){
+
+        
+
     }
 
     

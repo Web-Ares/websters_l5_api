@@ -8,6 +8,15 @@
     "/api/v1/users": {
       "get": {
         "summary": "get users",
+        "description": "Get Users request",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "Get all users"

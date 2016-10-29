@@ -17,12 +17,12 @@ use Illuminate\Http\Request;
 
 Route::group(['prefix' => 'v1'], function () {
     
-    Route::get('/users', 'UserController@getUsers');
+    Route::get('/users', ['uses' => 'UserController@getUsers', 'as' => 'home'])->middleware('google.check');
     
     Route::get('/users/{a}', 'UsersCustom@get2');
     
     Route::get('/auth_g','UserController@getGoogle');
 
- 
-    
+    Route::get('/auth',['uses' => 'UserController@getLogin', 'as' => 'auth'])->middleware('google.auth');
+
 });
