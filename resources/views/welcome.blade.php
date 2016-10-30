@@ -75,7 +75,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Websters API
+                    Websters API Version 0.0.1
                 </div>
 
                 <div class="links">
