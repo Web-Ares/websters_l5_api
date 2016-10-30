@@ -15,20 +15,6 @@ class UsersCustom extends Controller
         return ['1' => $a.'25'];
 
     }
-
-    /**
-     * @SWG\Get(
-     *   path="/api/v1/users/2",
-     *   summary="get FFF",
-     *   @SWG\Response(
-     *     response=200,
-     *     description="Get FFF"
-     *   ),
-     *   @SWG\Response(
-     *     response="default",
-     *     description="an ""unexpected"" error"
-     *   )
-     * )
-     */
+    
 
 }

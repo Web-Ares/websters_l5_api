@@ -21,7 +21,7 @@ class CheckGoogleToken
     {
 
         $headerAuthorization = Request::header('Authorization');
-
+//        $headerAuthorization = $_GET['token'];
         //If token isset
         if($headerAuthorization){
 

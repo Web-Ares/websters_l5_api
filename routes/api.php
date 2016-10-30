@@ -23,6 +23,6 @@ Route::group(['prefix' => 'v1'], function () {
     
     Route::get('/auth_g','UserController@getGoogle');
 
-    Route::get('/auth',['uses' => 'UserController@getLogin', 'as' => 'auth'])->middleware('google.auth');
+    Route::get('/auth',['uses' => 'UserController@getLogin', 'as' => 'auth'])->middleware('google.check');
 
 });

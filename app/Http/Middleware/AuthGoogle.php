@@ -22,6 +22,7 @@ class AuthGoogle
 
         
         $headerAuthorization = defRequest::header('Authorization');
+
         $headerAuthorization = $_GET['token'];
         //If token isset
         if($headerAuthorization){
