@@ -11,6 +11,7 @@
 |
 */
 
+
 Route::get('/', function () {
 
     return redirect('api/docs');
