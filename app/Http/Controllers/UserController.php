@@ -16,65 +16,6 @@ use GuzzleHttp;
 
 class UserController extends Controller
 {
-
-
-
-    public function getUsers( ){
-
-        $users  = User::all();
-
-        return response()->json($users);
-
-    }
-
-    /**
-     * @SWG\Get(
-     *   path="/api/v1/users",
-     *   tags={"Users"},
-     *   summary="get users",
-     *     description="Get Users request",
-     *   @SWG\Response(
-     *     response=200,
-     *     description="Get all users"
-     *   ),
-     *   @SWG\Response(
-     *     response="default",
-     *     description="an ""unexpected"" error"
-     *   ),
-     * @SWG\Parameter(
-         type="string",
-         name="Authorization",
-         in="header",
-         required=true)
-     * )
-     */
-
-    public function getTestValue(){
-        
-        return 222;
-    }
-
-    public function getGoogle(){
-
-        return view('welcome');
-    }
-
-
-    public function getSocialAuth(){
-
-        return Socialite::driver('google')->redirect();
-    }
-
-    public function getCallback( Request $request )
-    {
-        
-        $user = Socialite::driver('google')->user();
-
-        dd($user);
-        
-    }
-
-    
     public function getLogin( Request $request ){
 
         $headerAuthorization = \Request::header('Authorization');
@@ -118,6 +59,53 @@ class UserController extends Controller
      * )
      */
 
+    public function getUsers( ){
 
+        $users  = User::all();
+
+        return response()->json($users);
+
+    }
+
+    /**
+     * @SWG\Get(
+     *   path="/api/v1/users",
+     *   tags={"Users"},
+     *   summary="get users",
+     *     description="Get Users request",
+     *   @SWG\Response(
+     *     response=200,
+     *     description="Get all users"
+     *   ),
+     *   @SWG\Response(
+     *     response="default",
+     *     description="an ""unexpected"" error"
+     *   ),
+     * @SWG\Parameter(
+         type="string",
+         name="Authorization",
+         in="header",
+         required=true)
+     * )
+     */
+
+    public function getGoogle(){
+
+        return view('welcome');
+    }
+
+    public function getSocialAuth(){
+
+        return Socialite::driver('google')->redirect();
+    }
+
+    public function getCallback( Request $request )
+    {
+        
+        $user = Socialite::driver('google')->user();
+
+        dd($user);
+        
+    }
 
 }
