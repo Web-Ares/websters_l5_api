@@ -7,13 +7,16 @@
   "paths": {
     "/api/v1/users": {
       "get": {
+        "tags": [
+          "Users"
+        ],
         "summary": "get users",
         "description": "Get Users request",
         "parameters": [
           {
             "name": "Authorization",
             "in": "header",
-            "required": false,
+            "required": true,
             "type": "string"
           }
         ],
@@ -27,12 +30,24 @@
         }
       }
     },
-    "/api/v1/users/2": {
+    "/api/v1/auth": {
       "get": {
-        "summary": "get FFF",
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Authorization",
+        "description": "{Auth}",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
-            "description": "Get FFF"
+            "description": "Auth"
           },
           "default": {
             "description": "an \"unexpected\" error"

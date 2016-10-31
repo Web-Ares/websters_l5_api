@@ -80,6 +80,7 @@
                 <div class="title m-b-md">
                     Version 0.0.1
                 </div>
+
                 <div class="links">
                     <a href="https://laravel.com/docs">Documentation</a>
                     <a href="https://laracasts.com">Laracasts</a>
