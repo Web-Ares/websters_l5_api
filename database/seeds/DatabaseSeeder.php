@@ -24,8 +24,10 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
+       
+
         $user = new User();
-        $user->email = "alexksnikol@gmail.com";
+        $user->email = "petruninnikolay@gmail.com";
         $user->last_at = \Carbon\Carbon::now();
         $user->save();
 
