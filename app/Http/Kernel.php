@@ -54,5 +54,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'google.check' => \App\Http\Middleware\CheckGoogleToken::class,
         'google.auth' => \App\Http\Middleware\AuthGoogle::class,
+        'cors' => \App\Http\Middleware\Cors::class,
     ];
 }

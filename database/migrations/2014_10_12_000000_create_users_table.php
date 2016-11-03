@@ -17,9 +17,10 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('name')->default('');
             $table->string('email')->unique();
-            $table->string('token')->default('');
             $table->string('avatar')->default('');
-            $table->date('last_at');
+            $table->string('google_token')->default('');
+            $table->string('refresh_google_token')->default('');
+            $table->string('remember_token',100)->unique()->default('');;
             $table->timestamps();
         });
     }

@@ -18,23 +18,56 @@ class UserController extends Controller
 {
     public function getLogin( Request $request ){
 
-        $headerAuthorization = \Request::header('Authorization');
 
-//        $headerAuthorization = $_GET['token'];
+        $access_token = \Request::instance()->query('access_token');
+        $refresh_token = \Request::instance()->query('refresh_token');
+        
+        
+        if(!is_null($access_token) && !is_null($refresh_token)){
 
-        $client = new GuzzleHttp\Client();
+            $client = new GuzzleHttp\Client();
 
-        $token_path = 'https://www.googleapis.com/plus/v1/people/me?access_token='.$headerAuthorization;
+            $token_path = 'https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token='.$access_token.'';
 
-        $response = $client->request('GET',$token_path,['http_errors' => false]);
+            $response = $client->request('GET',$token_path,['http_errors' => false]);
 
-        $statusCode = $response->getStatusCode();
+            $statusCode = $response->getStatusCode();
 
-        $user = GuzzleHttp\json_decode($response->getBody(),true);
+            if($statusCode == 200){
 
-        $currentUser = $this->updateUserData( $user,$headerAuthorization );
+                $user = GuzzleHttp\json_decode($response->getBody(),true);
 
-        return response()->json($currentUser);
+                $currentUser = $this->updateUserData( $user , $access_token , $refresh_token );
+
+                if(!is_null($currentUser)){
+
+                    $output = array();
+                    $output['token'] = $currentUser->remember_token;
+                    $output['user']['id'] = $currentUser->id;
+                    $output['user']['name'] = $currentUser->name;
+                    $output['user']['email'] = $currentUser->email;
+                    $output['user']['avatar'] = $currentUser->avatar;
+
+                    return response()->json($output);
+
+                } else {
+
+                    return response('Missing In DB' ,201 )->setStatusCode(403);
+
+                }
+                
+            } else {
+
+                return response('Invalid Token', 401);
+            }
+            
+        } else {
+
+            return response('Null token or refresh token',401);
+        }
+
+
+        
     }
 
     /**

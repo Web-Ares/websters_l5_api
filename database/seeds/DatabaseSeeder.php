@@ -24,11 +24,14 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-       
+        $user = new User();
+        $user->email = "alexksnikol@gmail.com";
+        $user->remember_token = str_random(100);
+        $user->save();
 
         $user = new User();
-        $user->email = "petruninnikolay@gmail.com";
-        $user->last_at = \Carbon\Carbon::now();
+        $user->email = "tanyanya13@gmail.com";
+        $user->remember_token = str_random(100);
         $user->save();
 
     }

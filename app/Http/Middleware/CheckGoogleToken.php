@@ -21,18 +21,18 @@ class CheckGoogleToken
     {
 
         $headerAuthorization = Request::header('Authorization');
-//        $headerAuthorization = $_GET['token'];
+        $headerAuthorization = $_GET['token'];
         //If token isset
         if($headerAuthorization){
 
-                $token_path = 'https://www.googleapis.com/oauth2/v1/tokeninfo?access_token='.$headerAuthorization.'';
+                $token_path = 'https://www.googleapis.com/oauth2/v1/tokeninfo?access_token='.$headerAuthorization.'&client_id=1081708512703-n0pj3i53vd3mgak6ab3jgovfa7cu08r9.apps.googleusercontent.com';
 
                 $client = new GuzzleHttp\Client();
 
                 $status_token = $client->request('GET',$token_path,['http_errors' => false]);
 
                 $status_code = $status_token->getStatusCode();
-
+         
                 if( $status_code == 200 ){
 
                     return $next($request);
