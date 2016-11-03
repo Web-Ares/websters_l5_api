@@ -141,4 +141,10 @@ class UserController extends Controller
         
     }
 
+    public function getTest(){
+        
+
+        return response('You are here, Its "200" for you',200);
+    }
+
 }
