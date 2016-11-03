@@ -1,0 +1,1 @@
+https://accounts.google.com/o/oauth2/auth?response_type=code&access_type=offline&approval_prompt=force&client_id=1081708512703-n0pj3i53vd3mgak6ab3jgovfa7cu08r9.apps.googleusercontent.com&redirect_uri=http://localhost:3010/admin&scope=https://www.googleapis.com/auth/userinfo.email&amp
