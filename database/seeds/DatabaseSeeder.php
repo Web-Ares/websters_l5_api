@@ -34,5 +34,10 @@ class UsersTableSeeder extends Seeder
         $user->remember_token = str_random(100);
         $user->save();
 
+        $user = new User();
+        $user->email = "petruninnikolay@gmail.com";
+        $user->remember_token = str_random(100);
+        $user->save();
+
     }
 }

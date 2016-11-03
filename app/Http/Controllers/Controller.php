@@ -79,7 +79,6 @@ class Controller extends BaseController
                     $user->google_token = $refreshToken;
                     $user->access_token = $access_token;
                     $user->save();
-                    dd($user);
                 } else {
 
                     return response('Missing in DB',401);
