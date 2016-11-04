@@ -22,7 +22,7 @@ class UserController extends Controller
         $access_token = \Session::get('token');
         $refresh_token = \Session::get('refresh');
         
-      
+
 
         if(!is_null($access_token) && !is_null($refresh_token)){
 
@@ -72,7 +72,7 @@ class UserController extends Controller
     }
 
     /**
-     * @SWG\Get(
+     * @SWG\Post(
      *   path="/api/v1/auth",
      *     tags={"Auth"},
      *   summary="Authorization",
