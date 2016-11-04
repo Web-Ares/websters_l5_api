@@ -17,11 +17,11 @@ class Cors
     public function handle($request, Closure $next)
     {
 
-        header("Access-Control-Allow-Origin: http://localhost:63342/testCors/index.html");
+        header("Access-Control-Allow-Origin: http://localhost:63342");
 
         // ALLOW OPTIONS METHOD
         $headers = [
-            'Access-Control-Allow-Origin' => 'http://localhost:63342/testCors/index.html',
+            'Access-Control-Allow-Origin' => 'http://localhost:63342',
             'Access-Control-Allow-Methods'=> 'POST, GET, OPTIONS, PUT, DELETE',
             'Access-Control-Allow-Headers'=> 'Content-Type, X-Auth-Token, Origin'
         ];
