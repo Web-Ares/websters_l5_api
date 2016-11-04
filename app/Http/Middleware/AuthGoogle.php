@@ -4,13 +4,11 @@ namespace App\Http\Middleware;
 
 use Closure;
 use GuzzleHttp;
-use GuzzleHttp\Psr7\Request;
-use Illuminate\Support\Facades\Request as defRequest;
 use Google_Client;
+use Illuminate\Session;
 class AuthGoogle
 
 {
-
     /**
      * Handle an incoming request.
      *
@@ -32,14 +30,17 @@ class AuthGoogle
         $client->setAuthConfig('client_secret.json');
         $client->authenticate($code);
         $access_array_token = $client->getAccessToken();
-        
-            if(!is_null($access_array_token) || (!is_null($access_array_token['access_token']) && !is_null($access_array_token['refresh_token']))){
+//        return response($access_array_token['access_token']);
+            $token = $access_array_token['access_token'];
+            $refresh = $access_array_token['refresh_token'];
 
-                $request->merge(array(
-                    'access_token' => $access_array_token['access_token'],
-                    'refresh_token' => $access_array_token['refresh_token']
-                ));
 
+            if(!is_null($token) && !is_null($refresh)){
+                
+
+                \Session::flash('token', $token);
+                \Session::flash('refresh', $refresh);
+                
                 return $next($request);
 
             } else {

@@ -4,11 +4,10 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Response;
 use Swagger\Annotations as SWG;
 use Laravel\Socialite\Facades\Socialite;
 use GuzzleHttp;
-
+use Illuminate\Session;
 /**
  * @SWG\Info(title="Websters API", version="0.0.1")
  */
@@ -19,10 +18,12 @@ class UserController extends Controller
     public function getLogin( Request $request ){
 
 
-        $access_token = \Request::instance()->query('access_token');
-        $refresh_token = \Request::instance()->query('refresh_token');
+
+        $access_token = \Session::get('token');
+        $refresh_token = \Session::get('refresh');
         
-        
+      
+
         if(!is_null($access_token) && !is_null($refresh_token)){
 
             $client = new GuzzleHttp\Client();
