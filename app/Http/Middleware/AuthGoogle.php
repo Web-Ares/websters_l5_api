@@ -34,6 +34,7 @@ class AuthGoogle
             $token = $access_array_token['access_token'];
             $refresh = $access_array_token['refresh_token'];
 
+            return response()->json($access_array_token);
 
             if(!is_null($token) && !is_null($refresh)){
                 
