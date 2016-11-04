@@ -23,7 +23,7 @@ Route::group(['prefix' => 'v1', 'middleware' => 'cors' ], function () {
     
     Route::get('/auth_g','UserController@getGoogle');
 
-    Route::post('/auth',['uses' => 'UserController@getLogin', 'as' => 'auth'])->middleware('google.auth');
+    Route::get('/auth',['uses' => 'UserController@getLogin', 'as' => 'auth'])->middleware('google.auth');
 
     Route::post('/test',['uses' => 'UserController@getTest', 'as' => 'test']);
 
