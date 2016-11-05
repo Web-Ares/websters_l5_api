@@ -15,14 +15,3 @@ Route::get('/', function () {
 
     return redirect('api/docs');
 });
-
-Route::get('/social/google', [
-        'as' => 'socialite.auth',
-        'uses' => 'UserController@getSocialAuth'
-    ]
-);
-
-Route::get('/social/google/callback', [
-    'as' => 'admin.callback',
-    'uses' => 'UserController@getCallback',
-]);

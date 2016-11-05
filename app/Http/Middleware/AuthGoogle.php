@@ -20,7 +20,7 @@ class AuthGoogle
 
     public function handle($request, Closure $next)
     {
-//        $code = $_GET['code'];
+
         $code = \Request::header('Authorization');
 
         if($code){
@@ -28,9 +28,9 @@ class AuthGoogle
 
         $client = new Google_Client();
         $client->setAuthConfig('client_secret.json');
-        $autn  = $client->authenticate($code);
+        $client->authenticate($code);
         $access_array_token = $client->getAccessToken();
-//        return response($access_array_token['access_token']);
+
             $token = $access_array_token['access_token'];
             $refresh = $access_array_token['refresh_token'];
 
