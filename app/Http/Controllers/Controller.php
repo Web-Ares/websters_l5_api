@@ -14,7 +14,7 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public function updateUserData( $userData, $token , $refresh ){
+    public function updateUserData( $userData, $token , $refresh , $expires ){
 
         $email = $userData['email'];
 
@@ -42,8 +42,12 @@ class Controller extends BaseController
                 $user->refresh_google_token = $refresh;
                 $count++;
             }
+         
+            if($user->expires != $expires){
+                $user->expires = $expires;
+                $count++;
+            }
 
-            
             if($count!=0){
                 $user->save();
             }

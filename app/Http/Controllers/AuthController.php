@@ -4,17 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use GuzzleHttp;
+
+/**
+ * @SWG\Info(title="Websters API", version="0.0.1")
+ */
 class AuthController extends Controller
 {
     public function getLogin( Request $request ){
-
-
-
+        
         $access_token = \Session::get('token');
         $refresh_token = \Session::get('refresh');
-
-
-
+        $expires = \Session::get('expires');
         if(!is_null($access_token) && !is_null($refresh_token)){
 
             $client = new GuzzleHttp\Client();
@@ -28,8 +28,8 @@ class AuthController extends Controller
             if($statusCode == 200){
 
                 $user = GuzzleHttp\json_decode($response->getBody(),true);
-
-                $currentUser = $this->updateUserData( $user , $access_token , $refresh_token );
+          
+                $currentUser = $this->updateUserData( $user , $access_token , $refresh_token ,$expires );
 
                 if(!is_null($currentUser)){
 
@@ -39,6 +39,7 @@ class AuthController extends Controller
                     $output['user']['name'] = $currentUser->name;
                     $output['user']['email'] = $currentUser->email;
                     $output['user']['avatar'] = $currentUser->avatar;
+                    $output['user']['expires'] = $currentUser->expires;
 
                     return response()->json($output);
 

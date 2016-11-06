@@ -14,10 +14,12 @@ use Illuminate\Http\Request;
 */
 
 
-Route::group(['prefix' => 'v1', 'middleware' => 'cors' ], function () {
-    
-    Route::get('/users', ['uses' => 'UserController@getUsers', 'as' => 'home'])->middleware('google.check');
+Route::group(['prefix' => 'v1', 'middleware' => ['cors']], function () {
     
     Route::post('/auth',['uses' => 'AuthController@getLogin', 'as' => 'auth'])->middleware('google.auth');
-    
+
+    Route::resource('users','UserController', ['except' => ['store','show']]);
+
+    Route::get('users/me','UserController@getMe')->middleware('google.check');
+
 });

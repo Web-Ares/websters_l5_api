@@ -2,13 +2,13 @@
 
 namespace App\Http\Middleware;
 
+use App\User;
 use Closure;
 use GuzzleHttp;
-use Illuminate\Routing\Route;
-use Request;
+use Google_Client;
+use Illuminate\Session;
 class CheckGoogleToken
 {
-
     /**
      * Handle an incoming request.
      *
@@ -20,37 +20,48 @@ class CheckGoogleToken
     public function handle($request, Closure $next)
     {
 
-        $headerAuthorization = Request::header('Authorization');
-        $headerAuthorization = $_GET['token'];
-        //If token isset
-        if($headerAuthorization){
+        $code = \Request::header('Authorization');
+//        $code = $_GET['code'];
+        if($code){
 
-                $token_path = 'https://www.googleapis.com/oauth2/v1/tokeninfo?access_token='.$headerAuthorization.'&client_id=1081708512703-n0pj3i53vd3mgak6ab3jgovfa7cu08r9.apps.googleusercontent.com';
+            $user = User::where('remember_token',$code)->first();
 
-                $client = new GuzzleHttp\Client();
+            if(!is_null($user)){
 
-                $status_token = $client->request('GET',$token_path,['http_errors' => false]);
+                    $access_token = $user->google_token;
+                    $refresh_token = $user->refresh_google_token;
 
-                $status_code = $status_token->getStatusCode();
-         
-                if( $status_code == 200 ){
+                    $client = new Google_Client();
+                    $client->setAuthConfig('client_secret.json');
+                    $client->setAccessToken($access_token);
 
-                    return $next($request);
+                    if ( time()-$user->expires > 3599 ) {
 
+                        $client->refreshToken($refresh_token);
+
+                        $access_token = $client->getAccessToken();
+
+                        $tokens_decoded = $access_token;
+                        $access_token = $tokens_decoded['access_token'];
+
+                        $user->google_token = $access_token;
+                     
+                        $user->save();
+
+                    }
+           
+                return $next($request);
             }
             else {
-
-                return response('Invalid token', 401);
+                return response('Code invalid',401);
             }
 
         }
         else {
 
-            return response('Token Missing', 403);
+            return response('Code Missing',401);
 
         }
-
-
 
     }
 

@@ -2,26 +2,73 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
 use Illuminate\Http\Request;
-use Swagger\Annotations as SWG;
-use Laravel\Socialite\Facades\Socialite;
+use App\User;
 use GuzzleHttp;
-use Illuminate\Session;
-/**
- * @SWG\Info(title="Websters API", version="0.0.1")
- */
-
-
 class UserController extends Controller
 {
-    
-    public function getUsers( ){
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        //
+    }
 
-        $users  = User::all();
-
-        return response()->json($users);
-
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
     }
     
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //
+    }
+
+    public function getMe(){
+
+        $code = \Request::header('Authorization');
+//        $code = $_GET['code'];
+        $user = User::where('remember_token',$code)->first();
+
+        return response()->json($user);
+    }
+
 }

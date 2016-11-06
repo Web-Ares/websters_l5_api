@@ -24,23 +24,22 @@ class AuthGoogle
         $code = \Request::header('Authorization');
 
         if($code){
-
-
+            
         $client = new Google_Client();
         $client->setAuthConfig('client_secret.json');
         $client->authenticate($code);
         $access_array_token = $client->getAccessToken();
-
+          
             $token = $access_array_token['access_token'];
             $refresh = $access_array_token['refresh_token'];
+            $expires = $access_array_token['created'];
 
-          
             if(!is_null($token) && !is_null($refresh)){
                 
-
                 \Session::flash('token', $token);
                 \Session::flash('refresh', $refresh);
-                
+                \Session::flash('expires', $expires);
+
                 return $next($request);
 
             } else {

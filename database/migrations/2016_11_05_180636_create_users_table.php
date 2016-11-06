@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('google_token')->default('');
             $table->string('refresh_google_token')->default('');
             $table->string('remember_token',100)->unique()->default('');;
+            $table->string('expires')->default('');;
             $table->timestamps();
         });
     }
