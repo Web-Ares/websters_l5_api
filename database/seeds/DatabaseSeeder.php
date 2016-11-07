@@ -24,18 +24,28 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
+//        $user = new User();
+//        $user->email = "alexksnikol@gmail.com";
+//        $user->remember_token = str_random(100);
+//        $user->save();
+//
+//        $user = new User();
+//        $user->email = "tanyanya13@gmail.com";
+//        $user->remember_token = str_random(100);
+//        $user->save();
+//
+//        $user = new User();
+//        $user->email = "petruninnikolay@gmail.com";
+//        $user->remember_token = str_random(100);
+//        $user->save();
+
         $user = new User();
-        $user->email = "alexksnikol@gmail.com";
+        $user->email = "london.tokyo.madrid@gmail.com";
         $user->remember_token = str_random(100);
         $user->save();
 
         $user = new User();
-        $user->email = "tanyanya13@gmail.com";
-        $user->remember_token = str_random(100);
-        $user->save();
-
-        $user = new User();
-        $user->email = "petruninnikolay@gmail.com";
+        $user->email = "snike1985@gmail.com";
         $user->remember_token = str_random(100);
         $user->save();
 

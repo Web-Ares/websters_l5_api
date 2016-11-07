@@ -65,10 +65,32 @@ class UserController extends Controller
     public function getMe(){
 
         $code = \Request::header('Authorization');
-//        $code = $_GET['code'];
+
         $user = User::where('remember_token',$code)->first();
 
         return response()->json($user);
     }
+
+    /**
+     * @SWG\Get(
+     *   path="/api/v1/users/me",
+     *     tags={"Users"},
+     *   summary="Authorization",
+     *     description="{Auth}",
+     *   @SWG\Response(
+     *     response=200,
+     *     description="Auth"
+     *   ),
+     *   @SWG\Response(
+     *     response="default",
+     *     description="an ""unexpected"" error"
+     *   ),
+     * @SWG\Parameter(
+    type="string",
+    name="Authorization",
+    in="header",
+    required=true)
+     * )
+     */
 
 }
