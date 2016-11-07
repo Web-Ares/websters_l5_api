@@ -21,7 +21,7 @@ class CheckGoogleToken
     {
 
         $code = \Request::header('Authorization');
-//        $code = $_GET['code'];
+
         if($code){
 
             $user = User::where('remember_token',$code)->first();
@@ -35,7 +35,7 @@ class CheckGoogleToken
                     $client->setAuthConfig('client_secret.json');
                     $client->setAccessToken($access_token);
 
-                    if ( time()-$user->expires > 3599 ) {
+                    if ( time()-$user->expires > 3590 ) {
 
                         $client->refreshToken($refresh_token);
 
@@ -45,7 +45,8 @@ class CheckGoogleToken
                         $access_token = $tokens_decoded['access_token'];
 
                         $user->google_token = $access_token;
-                     
+                        $user->expires = $tokens_decoded['created'];
+
                         $user->save();
 
                     }

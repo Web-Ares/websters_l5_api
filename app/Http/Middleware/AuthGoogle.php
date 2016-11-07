@@ -22,7 +22,7 @@ class AuthGoogle
     {
 
         $code = \Request::header('Authorization');
-
+      
         if($code){
             
         $client = new Google_Client();
