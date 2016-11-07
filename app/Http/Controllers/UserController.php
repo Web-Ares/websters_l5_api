@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use GuzzleHttp;
+use Validator;
 class UserController extends Controller
 {
     /**
@@ -17,16 +18,6 @@ class UserController extends Controller
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-    
 
     /**
      * Show the form for editing the specified resource.
@@ -92,5 +83,59 @@ class UserController extends Controller
     required=true)
      * )
      */
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+
+    public function create(Request $request){
+
+        $email = $request->email;
+
+        if(!is_null($email) && isset($email) && !empty($email)){
+
+            $v = Validator::make($request->all(), [
+                'email' => 'required|email|unique:users'
+            ]);
+
+
+            if ($v->fails())
+            {
+
+                return response($v->messages()->first() ,404);
+
+                
+            } else {
+
+                $user = new User();
+                $user->email = $email;
+                $user->remember_token = str_random(100);
+                $user->save();
+
+                $to      = $email;
+                $subject = 'Welcome to Websters Team';
+                $message = 'Its a invite to our application, forward here for <a href="">login</a>';
+                $headers = 'From: webmaster@example.com' . "\r\n" .
+                    'Reply-To: office@websters' . "\r\n" .
+                    'X-Mailer: PHP/' . phpversion();
+
+                mail($to, $subject, $message, $headers);
+
+                return response('User Created', 200);
+
+            }
+
+
+
+        }
+        else {
+
+            return response('Invalid email', 401);
+        }
+
+    }
 
 }

@@ -18,8 +18,10 @@ Route::group(['prefix' => 'v1', 'middleware' => ['cors']], function () {
     
     Route::post('/auth',['uses' => 'AuthController@getLogin', 'as' => 'auth'])->middleware('google.auth');
 
-    Route::resource('users','UserController', ['except' => ['store','show']]);
+    Route::resource('users','UserController', ['except' => ['store','show','create']]);
 
     Route::get('users/me','UserController@getMe')->middleware('google.check');
+
+    Route::post('users/create','UserController@create');
 
 });
