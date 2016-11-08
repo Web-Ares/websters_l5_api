@@ -13,9 +13,10 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        
+
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('role_id')->default(2);
             $table->string('name')->default('');
             $table->string('email')->unique();
             $table->string('avatar')->default('');
@@ -24,6 +25,7 @@ class CreateUsersTable extends Migration
             $table->string('remember_token',100)->unique()->default('');;
             $table->string('expires')->default('');;
             $table->timestamps();
+            $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
         });
     }
 

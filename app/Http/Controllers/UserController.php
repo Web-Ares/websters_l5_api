@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Role;
 use Illuminate\Http\Request;
 use App\User;
 use GuzzleHttp;
@@ -50,9 +51,50 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $code = \Request::header('Authorization');
+
+        $user = User::where('id',$id)->first();
+        if(!is_null($user)){
+            $user->delete();
+
+            return response('User was deleted');
+
+        } else {
+            return response('Missing in DB',404);
+        }
+
+
     }
 
+    /**
+     * @SWG\Delete(
+     *   path="/api/v1/users/{id} ",
+     *     tags={"Users"},
+     *   summary="Delete a user",
+     *     description="{Auth}",
+     *   @SWG\Response(
+     *     response=200,
+     *     description="Auth"
+     *   ),
+     *   @SWG\Response(
+     *     response="default",
+     *     description="an ""unexpected"" error"
+     *   ),
+     * @SWG\Parameter(
+    type="string",
+    name="Authorization",
+    in="header",
+    required=true),
+     *@SWG\Parameter(
+    type="string",
+    name="id",
+    in="path",
+    required=true),
+     *
+     *
+     * )
+     */
+    
     public function getMe(){
 
         $code = \Request::header('Authorization');
@@ -66,7 +108,7 @@ class UserController extends Controller
      * @SWG\Get(
      *   path="/api/v1/users/me",
      *     tags={"Users"},
-     *   summary="Authorization",
+     *   summary="Get current user",
      *     description="{Auth}",
      *   @SWG\Response(
      *     response=200,
@@ -137,5 +179,48 @@ class UserController extends Controller
         }
 
     }
+
+    /**
+     * @SWG\Post(
+     *   path="/api/v1/users/create",
+     *     tags={"Users"},
+     *   summary="Create a new user",
+     *     description="{Auth}",
+     *   @SWG\Response(
+     *     response=200,
+     *     description="Auth"
+     *   ),
+     *   @SWG\Response(
+     *     response="default",
+     *     description="an ""unexpected"" error"
+     *   ),
+     * @SWG\Parameter(
+    type="string",
+    name="Authorization",
+    in="header",
+    required=true),
+     *@SWG\Parameter(
+    type="string",
+    name="email",
+    in="query",
+    required=true),
+     *
+     *
+     * )
+     */
+
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+
+        public function getTest($id){
+            $role_id = 1;
+            $user = User::find($id);
+            return $user->role;
+        }
 
 }

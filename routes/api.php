@@ -22,6 +22,10 @@ Route::group(['prefix' => 'v1', 'middleware' => ['cors']], function () {
 
     Route::get('users/me','UserController@getMe')->middleware('google.check');
 
-    Route::post('users/create','UserController@create');
+    Route::post('users/create','UserController@create')->middleware('google.check');
+
+    Route::get('test/{id}','UserController@getTest');
+
+    Route::get('roles','RoleController@getRoles')->middleware('google.check');
 
 });
