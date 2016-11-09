@@ -155,7 +155,9 @@ class UserController extends Controller
                 $user = new User();
                 $user->email = $email;
                 $user->remember_token = str_random(100);
-                $user->save();
+                $role_user = Role::find(2);
+                $role_user->users()->save($user);
+
 
                 $to      = $email;
                 $subject = 'Welcome to Websters Team';
