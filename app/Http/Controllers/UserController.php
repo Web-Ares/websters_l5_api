@@ -51,8 +51,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $code = \Request::header('Authorization');
-
+        
         $user = User::where('id',$id)->first();
         if(!is_null($user)){
             $user->delete();

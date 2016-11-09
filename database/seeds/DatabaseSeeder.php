@@ -15,6 +15,8 @@ class DatabaseSeeder extends Seeder
          $this->call(UsersTableSeeder::class);
 
          $this->call(RoleTableSeeder::class);
+        
+         $this->call(PositionSeeder::class);
     }
 }
 
@@ -74,4 +76,17 @@ class RoleTableSeeder extends Seeder
         $role->save();
     }
 
+}
+
+class PositionSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        
+    }
 }

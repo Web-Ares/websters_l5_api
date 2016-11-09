@@ -14,18 +14,28 @@ use Illuminate\Http\Request;
 */
 
 
-Route::group(['prefix' => 'v1', 'middleware' => ['cors']], function () {
+Route::group(['prefix' => 'v1', 'middleware' => ['cors','google.check']], function () {
     
-    Route::post('/auth',['uses' => 'AuthController@getLogin', 'as' => 'auth'])->middleware('google.auth');
-
     Route::resource('users','UserController', ['except' => ['store','show','create']]);
+    
+    Route::get('users/me','UserController@getMe');
 
-    Route::get('users/me','UserController@getMe')->middleware('google.check');
-
-    Route::post('users/create','UserController@create')->middleware('google.check');
+    Route::post('users/create','UserController@create');
 
     Route::get('test/{id}','UserController@getTest');
 
-    Route::get('roles','RoleController@getRoles')->middleware('google.check');
+    Route::get('roles','RoleController@getRoles');
+    
+    Route::resource('positions','PositionController', ['except' => ['store','show','create','index']]);
+   
+    Route::get('positions','PositionController@getPositions');;
 
+    Route::post('positions/create','PositionController@create');
+    
+});
+
+Route::group(['prefix' => 'v1', 'middleware' => ['cors','google.auth']], function () {
+
+    Route::post('/auth',['uses' => 'AuthController@getLogin', 'as' => 'auth'])->middleware('google.auth');
+    
 });
