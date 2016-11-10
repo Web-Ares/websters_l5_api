@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\User;
 use GuzzleHttp;
 use Validator;
+use App\Technology;
 class UserController extends Controller
 {
 
@@ -36,7 +37,7 @@ class UserController extends Controller
         if(!is_null($user)){
             $user->delete();
 
-            return response('User was deleted');
+            return response('User was deleted',204);
 
         } else {
             return response('Missing in DB',404);
@@ -166,16 +167,33 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
 
         public function getTest($id){
-            
-            $user = User::find(1)->positions()->get();
-            $position = Position::find(8);
+            $requestName = 1123;
+            $technology = Technology::where('id',$id)->first();
+//            $requestName = $request->name;
+            if(isset($requestName) && !empty($requestName)){
 
-            return response()->json($user);
+                if(!is_null($technology)){
+
+                    if($requestName != $technology->name){
+                        $technology->name  = $requestName;
+                        $technology->save();
+                        return response()->json($technology);
+                    } else {
+                        return response('Try to change on similar name',404);
+                    }
+
+                } else {
+                    return response('Try to update not existing technology',404);
+                }
+            }
+            else {
+                return response('Fill the name',404);
+            }
             
         }
 

@@ -24,7 +24,9 @@ Route::group(['prefix' => 'v1', 'middleware' => ['cors','google.check']], functi
     
     Route::resource('positions','PositionController', ['only' => ['store','index','destroy','update']]);
     
-    Route::resource('technologies','TechnologyController', ['only' => ['store','index','destroy','update']]);
+    Route::resource('technologies','TechnologyController', ['only' => ['store','index','destroy']]);
+
+    Route::put('technologies/{id}','TechnologyController@updateName');
     
 });
 
