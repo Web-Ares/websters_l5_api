@@ -143,19 +143,13 @@ class PositionController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
 
-    public function show($id){
+    public function index(){
 
-        if($id=='all'){
-            $positions = Position::all();
-            $message = 'Positions not exist yet';
-        } else {
-            $positions = Position::where('id',$id)->first();
-            $message = 'Position not exist';
-        }
+        $positions = Position::all();
+        $message = 'Positions not exist yet';
 
         if(count($positions)){
             return response()->json($positions);
@@ -169,7 +163,7 @@ class PositionController extends Controller
 
     /**
      * @SWG\Get(
-     *   path="/api/v1/positions/{id}",
+     *   path="/api/v1/positions",
      *     tags={"Positions"},
      *   summary="Create a positions",
      *     description="{Auth}",
@@ -185,12 +179,7 @@ class PositionController extends Controller
     type="string",
     name="Authorization",
     in="header",
-    required=true),
-     * @SWG\Parameter(
-    type="string",
-    name="id",
-    in="path",
-    required=true),
+    required=true)
      *
      *
      * )

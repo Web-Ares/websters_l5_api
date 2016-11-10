@@ -22,7 +22,9 @@ Route::group(['prefix' => 'v1', 'middleware' => ['cors','google.check']], functi
     
     Route::get('roles','RoleController@getRoles');
     
-    Route::resource('positions','PositionController', ['only' => ['store','show','destroy','update']]);
+    Route::resource('positions','PositionController', ['only' => ['store','index','destroy','update']]);
+    
+    Route::resource('technologies','TechnologyController', ['only' => ['store','show','destroy','update']]);
     
 });
 

@@ -31,35 +31,6 @@
             }
         },
         "/api/v1/positions/{id}": {
-            "get": {
-                "tags": [
-                    "Positions"
-                ],
-                "summary": "Create a positions",
-                "description": "{Auth}",
-                "parameters": [
-                    {
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Auth"
-                    },
-                    "default": {
-                        "description": "an \"unexpected\" error"
-                    }
-                }
-            },
             "put": {
                 "tags": [
                     "Positions"
@@ -138,6 +109,29 @@
             }
         },
         "/api/v1/positions": {
+            "get": {
+                "tags": [
+                    "Positions"
+                ],
+                "summary": "Create a positions",
+                "description": "{Auth}",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Auth"
+                    },
+                    "default": {
+                        "description": "an \"unexpected\" error"
+                    }
+                }
+            },
             "post": {
                 "tags": [
                     "Positions"
