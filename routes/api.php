@@ -23,9 +23,7 @@ Route::group(['prefix' => 'v1', 'middleware' => ['cors','google.check']], functi
     Route::get('users/all','UserController@getUsers');
 
     Route::post('users/create','UserController@create');
-
- 
-
+    
     Route::get('roles','RoleController@getRoles');
     
     Route::resource('positions','PositionController', ['except' => ['store','show','create','index']]);
