@@ -103,10 +103,10 @@ class PositionController extends Controller
         if(!is_null($position)){
             $position->delete();
 
-            return response('Position was deleted');
+            return response('',204);
 
         } else {
-            return response('Missing in DB',204);
+            return response('Missing in DB',422);
         }
         
     }
