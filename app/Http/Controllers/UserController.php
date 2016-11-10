@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Position;
 use App\Role;
 use Illuminate\Http\Request;
 use App\User;
@@ -210,6 +211,41 @@ class UserController extends Controller
      * )
      */
 
+    public function getUsers(){
+
+        $users = User::all();
+
+        if(count($users)!=0){
+            return response()->json($users);
+        } else {
+            return response('Users not exist yet',404);
+        }
+
+    }
+
+    /**
+     * @SWG\Get(
+     *   path="/api/v1/users/all",
+     *     tags={"Users"},
+     *   summary="Get all users",
+     *     description="{Auth}",
+     *   @SWG\Response(
+     *     response=200,
+     *     description="Auth"
+     *   ),
+     *   @SWG\Response(
+     *     response="default",
+     *     description="an ""unexpected"" error"
+     *   ),
+     * @SWG\Parameter(
+    type="string",
+    name="Authorization",
+    in="header",
+    required=true),
+     *
+     *
+     * )
+     */
 
     /**
      * Update the specified resource in storage.
@@ -219,9 +255,14 @@ class UserController extends Controller
      */
 
         public function getTest($id){
-            $role_id = 1;
-            $user = User::find($id);
-            return $user->role;
+            
+            $user = User::find(1)->positions()->get();
+            $position = Position::find(8);
+
+
+            
+            return response()->json($user);
+            
         }
 
 }

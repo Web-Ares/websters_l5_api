@@ -8,4 +8,12 @@ class Position extends Model
 {
 
     public $timestamps = false;
+
+    public function users()
+    {
+        return $this->belongsToMany('App\User','user_position');
+    }
+
+
 }
+

@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\User;
 use App\Role;
+use App\Position;
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -17,6 +18,7 @@ class DatabaseSeeder extends Seeder
          $this->call(RoleTableSeeder::class);
         
          $this->call(PositionSeeder::class);
+
     }
 }
 
@@ -87,6 +89,6 @@ class PositionSeeder extends Seeder
      */
     public function run()
     {
-        
+     
     }
 }

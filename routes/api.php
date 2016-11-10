@@ -20,15 +20,17 @@ Route::group(['prefix' => 'v1', 'middleware' => ['cors','google.check']], functi
     
     Route::get('users/me','UserController@getMe');
 
+    Route::get('users/all','UserController@getUsers');
+
     Route::post('users/create','UserController@create');
 
-    Route::get('test/{id}','UserController@getTest');
+ 
 
     Route::get('roles','RoleController@getRoles');
     
     Route::resource('positions','PositionController', ['except' => ['store','show','create','index']]);
    
-    Route::get('positions','PositionController@getPositions');;
+    Route::get('positions','PositionController@getPositions');
 
     Route::post('positions/create','PositionController@create');
     
@@ -39,3 +41,11 @@ Route::group(['prefix' => 'v1', 'middleware' => ['cors','google.auth']], functio
     Route::post('/auth',['uses' => 'AuthController@getLogin', 'as' => 'auth'])->middleware('google.auth');
     
 });
+
+
+Route::group(['prefix' => 'v1'], function () {
+
+    Route::get('test/{id}','UserController@getTest');
+
+});
+
