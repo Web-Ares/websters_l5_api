@@ -113,7 +113,7 @@
                 "tags": [
                     "Positions"
                 ],
-                "summary": "Create a positions",
+                "summary": "Get a positions",
                 "description": "{Auth}",
                 "parameters": [
                     {
@@ -180,6 +180,31 @@
                     "Roles"
                 ],
                 "summary": "Get all roles",
+                "description": "{Auth}",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Auth"
+                    },
+                    "default": {
+                        "description": "an \"unexpected\" error"
+                    }
+                }
+            }
+        },
+        "/api/v1/technologies": {
+            "get": {
+                "tags": [
+                    "Technologies"
+                ],
+                "summary": "Get a technologies",
                 "description": "{Auth}",
                 "parameters": [
                     {

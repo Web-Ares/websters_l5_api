@@ -106,7 +106,7 @@ class PositionController extends Controller
             return response('Position was deleted');
 
         } else {
-            return response('Missing in DB',404);
+            return response('Missing in DB',204);
         }
         
     }
@@ -165,7 +165,7 @@ class PositionController extends Controller
      * @SWG\Get(
      *   path="/api/v1/positions",
      *     tags={"Positions"},
-     *   summary="Create a positions",
+     *   summary="Get a positions",
      *     description="{Auth}",
      *   @SWG\Response(
      *     response=200,
