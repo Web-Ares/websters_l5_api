@@ -31,11 +31,40 @@
             }
         },
         "/api/v1/positions/{id}": {
-            "put": {
+            "get": {
                 "tags": [
                     "Positions"
                 ],
                 "summary": "Create a positions",
+                "description": "{Auth}",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Auth"
+                    },
+                    "default": {
+                        "description": "an \"unexpected\" error"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Positions"
+                ],
+                "summary": "Update a positions",
                 "description": "{Auth}",
                 "parameters": [
                     {
@@ -109,31 +138,6 @@
             }
         },
         "/api/v1/positions": {
-            "get": {
-                "tags": [
-                    "Positions"
-                ],
-                "summary": "Create a positions",
-                "description": "{Auth}",
-                "parameters": [
-                    {
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Auth"
-                    },
-                    "default": {
-                        "description": "an \"unexpected\" error"
-                    }
-                }
-            }
-        },
-        "/api/v1/positions/create": {
             "post": {
                 "tags": [
                     "Positions"
@@ -232,32 +236,7 @@
                 }
             }
         },
-        "/api/v1/users/me": {
-            "get": {
-                "tags": [
-                    "Users"
-                ],
-                "summary": "Get current user",
-                "description": "{Auth}",
-                "parameters": [
-                    {
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Auth"
-                    },
-                    "default": {
-                        "description": "an \"unexpected\" error"
-                    }
-                }
-            }
-        },
-        "/api/v1/users/create": {
+        "/api/v1/users": {
             "post": {
                 "tags": [
                     "Users"
@@ -288,18 +267,24 @@
                 }
             }
         },
-        "/api/v1/users/all": {
+        "/api/v1/users/{id}": {
             "get": {
                 "tags": [
                     "Users"
                 ],
-                "summary": "Get all users",
+                "summary": "Get user",
                 "description": "{Auth}",
                 "parameters": [
                     {
                         "name": "Authorization",
                         "in": "header",
                         "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": false,
                         "type": "string"
                     }
                 ],

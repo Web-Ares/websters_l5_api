@@ -16,21 +16,13 @@ use Illuminate\Http\Request;
 
 Route::group(['prefix' => 'v1', 'middleware' => ['cors','google.check']], function () {
     
-    Route::resource('users','UserController', ['except' => ['store','show','create']]);
+    Route::resource('users','UserController', ['only' => ['store','show','destroy','update']]);
     
-    Route::get('users/me','UserController@getMe');
-
-    Route::get('users/all','UserController@getUsers');
-
     Route::post('users/create','UserController@create');
     
     Route::get('roles','RoleController@getRoles');
     
-    Route::resource('positions','PositionController', ['except' => ['store','show','create','index']]);
-   
-    Route::get('positions','PositionController@getPositions');
-
-    Route::post('positions/create','PositionController@create');
+    Route::resource('positions','PositionController', ['only' => ['store','show','destroy','update']]);
     
 });
 

@@ -10,27 +10,6 @@ use GuzzleHttp;
 use Validator;
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -95,36 +74,7 @@ class UserController extends Controller
      * )
      */
     
-    public function getMe(){
 
-        $code = \Request::header('Authorization');
-
-        $user = User::where('remember_token',$code)->first();
-
-        return response()->json($user);
-    }
-
-    /**
-     * @SWG\Get(
-     *   path="/api/v1/users/me",
-     *     tags={"Users"},
-     *   summary="Get current user",
-     *     description="{Auth}",
-     *   @SWG\Response(
-     *     response=200,
-     *     description="Auth"
-     *   ),
-     *   @SWG\Response(
-     *     response="default",
-     *     description="an ""unexpected"" error"
-     *   ),
-     * @SWG\Parameter(
-    type="string",
-    name="Authorization",
-    in="header",
-    required=true)
-     * )
-     */
 
     /**
      * Remove the specified resource from storage.
@@ -133,7 +83,7 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function create(Request $request){
+    public function store(Request $request){
 
         $email = $request->email;
 
@@ -184,7 +134,7 @@ class UserController extends Controller
 
     /**
      * @SWG\Post(
-     *   path="/api/v1/users/create",
+     *   path="/api/v1/users",
      *     tags={"Users"},
      *   summary="Create a new user",
      *     description="{Auth}",
@@ -211,23 +161,69 @@ class UserController extends Controller
      * )
      */
 
-    public function getUsers(){
 
-        $users = User::all();
 
-        if(count($users)!=0){
-            return response()->json($users);
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+
+        public function getTest($id){
+            
+            $user = User::find(1)->positions()->get();
+            $position = Position::find(8);
+
+            return response()->json($user);
+            
+        }
+
+
+    public function show($id){
+        $message ='';
+        if($id == 'me') {
+
+            $code = \Request::header('Authorization');
+
+            $user = User::where('remember_token', $code)->first();
+
+            if (is_null($user)) {
+                $message = 'Invalid me';
+            }
+
+        }
+        elseif($id == 'all') {
+
+            $user = User::all();
+
+            if (is_null($user)) {
+                $message = 'Users not exist yet';
+            }
+
+        }
+        else {
+            $user = User::where('id', $id)->first();
+
+            if (is_null($user)) {
+                $message = 'Not found';
+            }
+
+        }
+
+        if(!is_null($user)){
+            return response()->json($user);
         } else {
-            return response('Users not exist yet',404);
+            return response($message,404);
         }
 
     }
 
     /**
      * @SWG\Get(
-     *   path="/api/v1/users/all",
+     *   path="/api/v1/users/{id}",
      *     tags={"Users"},
-     *   summary="Get all users",
+     *   summary="Get user",
      *     description="{Auth}",
      *   @SWG\Response(
      *     response=200,
@@ -242,27 +238,13 @@ class UserController extends Controller
     name="Authorization",
     in="header",
     required=true),
-     *
-     *
+     * @SWG\Parameter(
+    type="string",
+    name="id",
+    in="path",
+    required=false)
      * )
      */
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-
-        public function getTest($id){
-            
-            $user = User::find(1)->positions()->get();
-            $position = Position::find(8);
-
-
-            
-            return response()->json($user);
-            
-        }
+    
 
 }

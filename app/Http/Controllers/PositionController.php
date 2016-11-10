@@ -8,18 +8,6 @@ use Illuminate\Http\Request;
 class PositionController extends Controller
 {
 
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
     /**
      * Update the specified resource in storage.
      *
@@ -61,7 +49,7 @@ class PositionController extends Controller
      * @SWG\Put(
      *   path="/api/v1/positions/{id}",
      *     tags={"Positions"},
-     *   summary="Create a positions",
+     *   summary="Update a positions",
      *     description="{Auth}",
      *   @SWG\Response(
      *     response=200,
@@ -123,7 +111,6 @@ class PositionController extends Controller
         
     }
 
-
     /**
      * @SWG\Delete(
      *   path="/api/v1/positions/{id}",
@@ -153,15 +140,28 @@ class PositionController extends Controller
      * )
      */
 
-    public function getPositions(){
-        
-        $positions = Position::all();
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+
+    public function show($id){
+
+        if($id=='all'){
+            $positions = Position::all();
+            $message = 'Positions not exist yet';
+        } else {
+            $positions = Position::where('id',$id)->first();
+            $message = 'Position not exist';
+        }
 
         if(count($positions)){
             return response()->json($positions);
         }
         else{
-            return response('Positions not exist yet',404);
+            return response($message,404);
         }
         
 
@@ -169,7 +169,7 @@ class PositionController extends Controller
 
     /**
      * @SWG\Get(
-     *   path="/api/v1/positions",
+     *   path="/api/v1/positions/{id}",
      *     tags={"Positions"},
      *   summary="Create a positions",
      *     description="{Auth}",
@@ -186,11 +186,15 @@ class PositionController extends Controller
     name="Authorization",
     in="header",
     required=true),
+     * @SWG\Parameter(
+    type="string",
+    name="id",
+    in="path",
+    required=true),
      *
      *
      * )
      */
-
 
     /**
      * Remove the specified resource from storage.
@@ -199,7 +203,7 @@ class PositionController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function create(Request  $request){
+    public function store(Request  $request){
 
         $name_ru  = $request->name_ru;
         $name_ua  = $request->name_ua;
@@ -225,7 +229,7 @@ class PositionController extends Controller
 
     /**
      * @SWG\Post(
-     *   path="/api/v1/positions/create",
+     *   path="/api/v1/positions",
      *     tags={"Positions"},
      *   summary="Create a position",
      *     description="{Auth}",

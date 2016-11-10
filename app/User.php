@@ -24,7 +24,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password','google_token','refresh_google_token','expires','created_at','updated_at'
     ];
 
     public function role()
@@ -35,6 +35,15 @@ class User extends Authenticatable
     public function positions()
     {
         return $this->belongsToMany('App\Position','user_position');
+    }
+
+
+    public function hasRole($role)
+    {
+        if($this->role()->where('name',$role)->first()){
+            return true;
+        }
+        return false;
     }
 
 }
