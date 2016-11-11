@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Technology;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 
 class TechnologyController extends Controller
 {
@@ -182,8 +183,10 @@ class TechnologyController extends Controller
      */
     
     public function patchImage($id, Request $request){
-        
-        return response()->json($request->file('fff'));
+
+        $file = Input::file('images');
+
+        return response()->json($file);
     }
 
     /**

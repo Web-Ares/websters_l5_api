@@ -9,6 +9,7 @@ use App\User;
 use GuzzleHttp;
 use Validator;
 use App\Technology;
+
 class UserController extends Controller
 {
 
@@ -210,26 +211,30 @@ class UserController extends Controller
      */
 
     public function getTest($id, Request $request){
-        $user_id = $id;
-        $role_id = $request->role_id;
-        $technologies_ids = $request->technologies_ids;
-        $positions_ids = $request->positions_ids;
 
-        $role_id = 2;
+//        $user_id = $id;
+//        $role_id = $request->role_id;
+//        $technologies_ids = $request->technologies_ids;
+//        $positions_ids = $request->positions_ids;
+//
+//        $role_id = 2;
+//
+//        $technologies_ids = 1;
+//
+//        $positions_ids = [16, 17, 18];
+//
+//        $role_user = Role::find($role_id);
+//
+//        $user = User::find($user_id);
+//
+//        $role_user->users()->save($user);
+//
+//        $user->positions()->sync($positions_ids);
+//
+//        dd($user->positions);
+        $file = Input::file();
 
-        $technologies_ids = 1;
-
-        $positions_ids = [16, 17, 18];
-
-        $role_user = Role::find($role_id);
-
-        $user = User::find($user_id);
-
-        $role_user->users()->save($user);
-
-        $user->positions()->sync($positions_ids);
-        
-        dd($user->positions);
+        return response()->json($file);
 
         }
 
