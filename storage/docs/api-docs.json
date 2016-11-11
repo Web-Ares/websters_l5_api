@@ -319,6 +319,37 @@
                 }
             }
         },
+        "/api/v1/technologies/{id}/upload": {
+            "patch": {
+                "tags": [
+                    "Technologies"
+                ],
+                "summary": "Delete a technologies",
+                "description": "{Auth}",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Auth"
+                    },
+                    "default": {
+                        "description": "an \"unexpected\" error"
+                    }
+                }
+            }
+        },
         "/api/v1/users/{id}": {
             "get": {
                 "tags": [

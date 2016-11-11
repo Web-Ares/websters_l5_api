@@ -107,12 +107,12 @@ class TechnologyController extends Controller
      */
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  int $id
-     * @param  Request $request
-     * @return \Illuminate\Http\Response
-     */
+ * Store a newly created resource in storage.
+ *
+ * @param  int $id
+ * @param  Request $request
+ * @return \Illuminate\Http\Response
+ */
     public function updateName($id, Request $request){
 
         $technology = Technology::where('id',$id)->first();
@@ -173,6 +173,50 @@ class TechnologyController extends Controller
      * )
      */
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  int $id
+     * @param  Request $request
+     * @return \Illuminate\Http\Response
+     */
+    
+    public function patchImage($id, Request $request){
+        
+        return response('Hello!',200);
+    }
+
+    /**
+     * @SWG\Patch(
+     *   path="/api/v1/technologies/{id}/upload",
+     *     tags={"Technologies"},
+     *   summary="Delete a technologies",
+     *     description="{Auth}",
+     *   @SWG\Response(
+     *     response=200,
+     *     description="Auth"
+     *   ),
+     *   @SWG\Response(
+     *     response="default",
+     *     description="an ""unexpected"" error"
+     *   ),
+     * @SWG\Parameter(
+    type="string",
+    name="Authorization",
+    in="header",
+    required=true),
+     *@SWG\Parameter(
+    type="string",
+    name="id",
+    in="path",
+    required=true),
+     *
+     *
+     * )
+     */
+    
+    
+    
     /**
      * Remove the specified resource from storage.
      *

@@ -205,33 +205,32 @@ class UserController extends Controller
      * Update the specified resource in storage.
      *
      * @param  int $id
+     * @param  Request $request
      * @return \Illuminate\Http\Response
      */
 
-    public function getTest($id){
-            $requestName = 1123;
-            $technology = Technology::where('id',$id)->first();
-//            $requestName = $request->name;
-            if(isset($requestName) && !empty($requestName)){
+    public function getTest($id, Request $request){
+        $user_id = $id;
+        $role_id = $request->role_id;
+        $technologies_ids = $request->technologies_ids;
+        $positions_ids = $request->positions_ids;
 
-                if(!is_null($technology)){
+        $role_id = 2;
 
-                    if($requestName != $technology->name){
-                        $technology->name  = $requestName;
-                        $technology->save();
-                        return response()->json($technology);
-                    } else {
-                        return response('Try to change on similar name',404);
-                    }
+        $technologies_ids = 1;
 
-                } else {
-                    return response('Try to update not existing technology',404);
-                }
-            }
-            else {
-                return response('Fill the name',404);
-            }
-            
+        $positions_ids = [16, 17, 18];
+
+        $role_user = Role::find($role_id);
+
+        $user = User::find($user_id);
+
+        $role_user->users()->save($user);
+
+        $user->positions()->sync($positions_ids);
+        
+        dd($user->positions);
+
         }
-    
+
 }
