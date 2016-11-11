@@ -9,6 +9,43 @@ class TechnologyController extends Controller
 {
 
     /**
+     * Display the specified resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $technology = Technology::all();
+
+        return response()->json($technology);
+
+    }
+
+    /**
+     * @SWG\Get(
+     *   path="/api/v1/technologies",
+     *     tags={"Technologies"},
+     *   summary="Get a technologies",
+     *     description="{Auth}",
+     *   @SWG\Response(
+     *     response=200,
+     *     description="Auth"
+     *   ),
+     *   @SWG\Response(
+     *     response="default",
+     *     description="an ""unexpected"" error"
+     *   ),
+     * @SWG\Parameter(
+    type="string",
+    name="Authorization",
+    in="header",
+    required=true)
+     *
+     *
+     * )
+     */
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -70,23 +107,43 @@ class TechnologyController extends Controller
      */
 
     /**
-     * Display the specified resource.
+     * Store a newly created resource in storage.
      *
+     * @param  int $id
+     * @param  Request $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $technology = Technology::all();
-        
-        return response()->json($technology);
-      
-    }
+    public function updateName($id, Request $request){
 
+        $technology = Technology::where('id',$id)->first();
+        $requestName = $request->name;
+
+        if(isset($requestName) && !empty($requestName)){
+
+            if(!is_null($technology)){
+
+                if($requestName != $technology->name){
+
+                    $technology->name  = $requestName;
+                    $technology->save();
+                    return response()->json($technology);
+                } else {
+                    return response('Try to change on similar name',404);
+                }
+
+            } else {
+                return response('Try to update not existing technology',404);
+            }
+        }
+        else {
+            return response('Fill the name',404);
+        }
+    }
     /**
-     * @SWG\Get(
-     *   path="/api/v1/technologies",
+     * @SWG\Put(
+     *   path="/api/v1/technologies/{id}",
      *     tags={"Technologies"},
-     *   summary="Get a technologies",
+     *   summary="Update a technologies",
      *     description="{Auth}",
      *   @SWG\Response(
      *     response=200,
@@ -100,7 +157,17 @@ class TechnologyController extends Controller
     type="string",
     name="Authorization",
     in="header",
-    required=true)
+    required=true),
+     *@SWG\Parameter(
+    type="string",
+    name="id",
+    in="path",
+    required=true),
+     *@SWG\Parameter(
+    type="string",
+    name="name",
+    in="query",
+    required=true),
      *
      *
      * )
@@ -156,70 +223,5 @@ class TechnologyController extends Controller
      * )
      */
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  int $id
-     * @param  Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function updateName($id, Request $request){
 
-        $technology = Technology::where('id',$id)->first();
-        $requestName = $request->name;
-
-        if(isset($requestName) && !empty($requestName)){
-
-            if(!is_null($technology)){
-
-                if($requestName != $technology->name){
-
-                    $technology->name  = $requestName;
-                    $technology->save();
-                    return response()->json($technology);
-                } else {
-                    return response('Try to change on similar name',404);
-                }
-
-            } else {
-               return response('Try to update not existing technology',404);
-            }
-        }
-        else {
-                return response('Fill the name',404);
-            }
-    }
-    /**
-     * @SWG\Put(
-     *   path="/api/v1/technologies/{id}",
-     *     tags={"Technologies"},
-     *   summary="Update a technologies",
-     *     description="{Auth}",
-     *   @SWG\Response(
-     *     response=200,
-     *     description="Auth"
-     *   ),
-     *   @SWG\Response(
-     *     response="default",
-     *     description="an ""unexpected"" error"
-     *   ),
-     * @SWG\Parameter(
-    type="string",
-    name="Authorization",
-    in="header",
-    required=true),
-     *@SWG\Parameter(
-    type="string",
-    name="id",
-    in="path",
-    required=true),
-     *@SWG\Parameter(
-    type="string",
-    name="name",
-    in="query",
-    required=true),
-     *
-     *
-     * )
-     */
 }

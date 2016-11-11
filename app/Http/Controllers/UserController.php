@@ -12,45 +12,36 @@ use App\Technology;
 class UserController extends Controller
 {
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+    public function show($id){
+        $message ='';
+        if($id == 'me') {
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        
-        $user = User::where('id',$id)->first();
-        if(!is_null($user)){
-            $user->delete();
+            $code = \Request::header('Authorization');
 
-            return response('User was deleted',204);
+            $user = User::where('remember_token', $code)->first();
 
-        } else {
-            return response('Missing in DB',404);
+        }
+        elseif($id == 'all') {
+
+            $user = User::all();
+
+        }
+        else {
+            $user = User::where('id', $id)->first();
+
         }
 
 
+        return response()->json($user);
+
+
     }
 
     /**
-     * @SWG\Delete(
-     *   path="/api/v1/users/{id} ",
+     * @SWG\Get(
+     *   path="/api/v1/users/{id}",
      *     tags={"Users"},
-     *   summary="Delete a user",
+     *   summary="Get user",
      *     description="{Auth}",
      *   @SWG\Response(
      *     response=200,
@@ -65,16 +56,13 @@ class UserController extends Controller
     name="Authorization",
     in="header",
     required=true),
-     *@SWG\Parameter(
+     * @SWG\Parameter(
     type="string",
     name="id",
     in="path",
-    required=true),
-     *
-     *
+    required=false)
      * )
      */
-    
 
 
     /**
@@ -100,7 +88,7 @@ class UserController extends Controller
 
                 return response($v->messages()->first() ,404);
 
-                
+
             } else {
 
                 $user = new User();
@@ -162,7 +150,56 @@ class UserController extends Controller
      * )
      */
 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        
+        $user = User::where('id',$id)->first();
+        if(!is_null($user)){
+            $user->delete();
 
+            return response('User was deleted',204);
+
+        } else {
+            return response('Missing in DB',404);
+        }
+
+
+    }
+
+    /**
+     * @SWG\Delete(
+     *   path="/api/v1/users/{id} ",
+     *     tags={"Users"},
+     *   summary="Delete a user",
+     *     description="{Auth}",
+     *   @SWG\Response(
+     *     response=200,
+     *     description="Auth"
+     *   ),
+     *   @SWG\Response(
+     *     response="default",
+     *     description="an ""unexpected"" error"
+     *   ),
+     * @SWG\Parameter(
+    type="string",
+    name="Authorization",
+    in="header",
+    required=true),
+     *@SWG\Parameter(
+    type="string",
+    name="id",
+    in="path",
+    required=true),
+     *
+     *
+     * )
+     */
 
     /**
      * Update the specified resource in storage.
@@ -171,7 +208,7 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-        public function getTest($id){
+    public function getTest($id){
             $requestName = 1123;
             $technology = Technology::where('id',$id)->first();
 //            $requestName = $request->name;
@@ -196,59 +233,5 @@ class UserController extends Controller
             }
             
         }
-
-
-    public function show($id){
-        $message ='';
-        if($id == 'me') {
-
-            $code = \Request::header('Authorization');
-
-            $user = User::where('remember_token', $code)->first();
-
-        }
-        elseif($id == 'all') {
-
-            $user = User::all();
-
-        }
-        else {
-            $user = User::where('id', $id)->first();
-
-        }
-
-
-        return response()->json($user);
-
-
-    }
-
-    /**
-     * @SWG\Get(
-     *   path="/api/v1/users/{id}",
-     *     tags={"Users"},
-     *   summary="Get user",
-     *     description="{Auth}",
-     *   @SWG\Response(
-     *     response=200,
-     *     description="Auth"
-     *   ),
-     *   @SWG\Response(
-     *     response="default",
-     *     description="an ""unexpected"" error"
-     *   ),
-     * @SWG\Parameter(
-    type="string",
-    name="Authorization",
-    in="header",
-    required=true),
-     * @SWG\Parameter(
-    type="string",
-    name="id",
-    in="path",
-    required=false)
-     * )
-     */
     
-
 }

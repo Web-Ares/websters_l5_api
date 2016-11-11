@@ -30,6 +30,72 @@
                 }
             }
         },
+        "/api/v1/positions": {
+            "get": {
+                "tags": [
+                    "Positions"
+                ],
+                "summary": "Get a positions",
+                "description": "{Auth}",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Auth"
+                    },
+                    "default": {
+                        "description": "an \"unexpected\" error"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Positions"
+                ],
+                "summary": "Create a position",
+                "description": "{Auth}",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "name_ua",
+                        "in": "query",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "name_ru",
+                        "in": "query",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "name_en",
+                        "in": "query",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Auth"
+                    },
+                    "default": {
+                        "description": "an \"unexpected\" error"
+                    }
+                }
+            }
+        },
         "/api/v1/positions/{id}": {
             "put": {
                 "tags": [
@@ -94,72 +160,6 @@
                     {
                         "name": "id",
                         "in": "path",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Auth"
-                    },
-                    "default": {
-                        "description": "an \"unexpected\" error"
-                    }
-                }
-            }
-        },
-        "/api/v1/positions": {
-            "get": {
-                "tags": [
-                    "Positions"
-                ],
-                "summary": "Get a positions",
-                "description": "{Auth}",
-                "parameters": [
-                    {
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Auth"
-                    },
-                    "default": {
-                        "description": "an \"unexpected\" error"
-                    }
-                }
-            },
-            "post": {
-                "tags": [
-                    "Positions"
-                ],
-                "summary": "Create a position",
-                "description": "{Auth}",
-                "parameters": [
-                    {
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "name": "name_ua",
-                        "in": "query",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "name": "name_ru",
-                        "in": "query",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "name": "name_en",
-                        "in": "query",
                         "required": true,
                         "type": "string"
                     }
@@ -319,12 +319,12 @@
                 }
             }
         },
-        "/api/v1/users/{id} ": {
-            "delete": {
+        "/api/v1/users/{id}": {
+            "get": {
                 "tags": [
                     "Users"
                 ],
-                "summary": "Delete a user",
+                "summary": "Get user",
                 "description": "{Auth}",
                 "parameters": [
                     {
@@ -336,7 +336,7 @@
                     {
                         "name": "id",
                         "in": "path",
-                        "required": true,
+                        "required": false,
                         "type": "string"
                     }
                 ],
@@ -381,12 +381,12 @@
                 }
             }
         },
-        "/api/v1/users/{id}": {
-            "get": {
+        "/api/v1/users/{id} ": {
+            "delete": {
                 "tags": [
                     "Users"
                 ],
-                "summary": "Get user",
+                "summary": "Delete a user",
                 "description": "{Auth}",
                 "parameters": [
                     {
@@ -398,7 +398,7 @@
                     {
                         "name": "id",
                         "in": "path",
-                        "required": false,
+                        "required": true,
                         "type": "string"
                     }
                 ],
