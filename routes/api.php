@@ -28,7 +28,7 @@ Route::group(['prefix' => 'v1', 'middleware' => ['cors','google.check']], functi
 
     Route::put('technologies/{id}','TechnologyController@updateName');
 
-    Route::patch('technologies/{id}/upload','TechnologyController@patchImage');
+
 
 });
 
@@ -42,6 +42,8 @@ Route::group(['prefix' => 'v1', 'middleware' => ['cors','google.auth']], functio
 Route::group(['prefix' => 'v1'], function () {
 
     Route::get('test/{id}','UserController@getTest');
+
+    Route::patch('technologies/{id}/upload','TechnologyController@patchImage');
 
 });
 
