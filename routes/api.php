@@ -39,7 +39,7 @@ Route::group(['prefix' => 'v1', 'middleware' => ['cors','google.auth']], functio
 });
 
 
-Route::group(['prefix' => 'v1'], function () {
+Route::group(['prefix' => 'v1', 'middleware' => ['cors']], function () {
 
     Route::get('test/{id}','UserController@getTest');
 
