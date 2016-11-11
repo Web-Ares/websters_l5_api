@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Technology;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
-
 class TechnologyController extends Controller
 {
 
