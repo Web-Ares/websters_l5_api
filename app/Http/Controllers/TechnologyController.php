@@ -183,7 +183,7 @@ class TechnologyController extends Controller
     
     public function patchImage($id, Request $request){
         
-        return response()->json($request->file());
+        return response()->json($request->file('fff'));
     }
 
     /**
