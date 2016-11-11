@@ -149,14 +149,9 @@ class PositionController extends Controller
     public function index(){
 
         $positions = Position::all();
-        $message = 'Positions not exist yet';
-
-        if(count($positions)){
-            return response()->json($positions);
-        }
-        else{
-            return response($message,404);
-        }
+        
+        return response()->json($positions);
+      
         
 
     }

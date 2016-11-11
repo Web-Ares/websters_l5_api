@@ -8,13 +8,9 @@ class RoleController extends Controller
     public function getRoles(){
 
         $roles = Role::all();
-
-        if(count($roles)!==0):
-            return response()->json($roles);
-        else:
-            return response('Roles not exist yet',404);
-        endif;
-
+        
+        return response()->json($roles);
+        
     }
 
     /**

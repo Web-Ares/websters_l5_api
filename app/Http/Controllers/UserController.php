@@ -206,34 +206,20 @@ class UserController extends Controller
 
             $user = User::where('remember_token', $code)->first();
 
-            if (is_null($user)) {
-                $message = 'Invalid me';
-            }
-
         }
         elseif($id == 'all') {
 
             $user = User::all();
 
-            if (is_null($user)) {
-                $message = 'Users not exist yet';
-            }
-
         }
         else {
             $user = User::where('id', $id)->first();
 
-            if (is_null($user)) {
-                $message = 'Not found';
-            }
-
         }
 
-        if(!is_null($user)){
-            return response()->json($user);
-        } else {
-            return response($message,404);
-        }
+
+        return response()->json($user);
+
 
     }
 

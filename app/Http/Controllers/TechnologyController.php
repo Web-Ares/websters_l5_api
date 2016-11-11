@@ -14,6 +14,7 @@ class TechnologyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    
     public function store(Request $request)
     {
         $name = $request->name;
@@ -77,14 +78,8 @@ class TechnologyController extends Controller
     {
         $technology = Technology::all();
         
-        $message = 'Technologies not exist yet';
-
-        if(count($technology)){
-            return response()->json($technology);
-        }
-        else{
-            return response($message,404);
-        }
+        return response()->json($technology);
+      
     }
 
     /**
