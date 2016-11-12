@@ -96,6 +96,13 @@
 
 
 
+                <form enctype="multipart/form-data" action="technologies/1/upload" method="post">
+                <input type="text" name="texxxt"  />
+                    <label>Прикрепить изображение</label>
+                    <input name="img" type="file">
+                    <button type="submit">Отправить</button>
+
+                </form>
 
             </div>
         </div>

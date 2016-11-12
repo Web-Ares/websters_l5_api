@@ -45,5 +45,10 @@ Route::group(['prefix' => 'v1', 'middleware' => ['cors']], function () {
 
     Route::put('technologies/{id}/upload','TechnologyController@patchImage');
 
+    Route::get('/test', function () {
+
+        return view('welcome');
+    });
+
 });
 

@@ -232,7 +232,7 @@ class UserController extends Controller
 //        $user->positions()->sync($positions_ids);
 //
 //        dd($user->positions);
-        $file = Input::file();
+        $file = Input::file('123.png');
 
         return response()->json($file);
 

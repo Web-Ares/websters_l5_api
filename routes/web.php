@@ -16,7 +16,3 @@ Route::get('/', function () {
     return redirect('api/docs');
 });
 
-Route::get('/test', function () {
-
-    return view('welcome');
-});

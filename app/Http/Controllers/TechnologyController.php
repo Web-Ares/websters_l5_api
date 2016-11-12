@@ -183,9 +183,16 @@ class TechnologyController extends Controller
     
     public function patchImage($id, Request $request){
 
-        $file = Input::file();
+        $file = Input::file('img');
 
-        return response()->json($file);
+        $output['name']= $file->getClientOriginalName();
+        $output['path']= $file->getRealPath();;
+        $output['extension']= $file->getClientOriginalExtension();
+        $output['size']= $file->getSize();
+        $output['mime']= $file->getMimeType();
+
+       
+        return response()->json($output);
     }
 
     /**
