@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Technology;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
+use File;
 class TechnologyController extends Controller
 {
 
@@ -177,23 +178,52 @@ class TechnologyController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  int $id
-     * @param  Request $request
      * @return \Illuminate\Http\Response
      */
     
-    public function patchImage($id, Request $request){
+    public function patchImage($id){
 
-        $file = Input::file('img');
+    $technology = Technology::find($id);
 
-        $output['name']= $file->getClientOriginalName();
-        $output['path']= $file->getRealPath();;
-        $output['extension']= $file->getClientOriginalExtension();
-        $output['size']= $file->getSize();
-        $output['mime']= $file->getMimeType();
+        if(!is_null($technology)){
 
-       
-        return response()->json($output);
-    }
+            if(Input::hasFile('img')){
+
+                $file = Input::file('img');
+
+                File::delete('technologies/'.$technology->image);
+
+                $outputName= $file->getClientOriginalName();
+
+                $imageName = time().'-'.$outputName;
+
+                $technology->image = $imageName;
+                
+                $technology->save();
+
+                $directoryPath = base_path() . '/public/technologies/';
+
+                $pathToFile = $directoryPath.$imageName;
+
+                $file->move(
+                    $directoryPath , $imageName
+                );
+                
+                return response()->file($pathToFile);
+
+            } else {
+
+                return response('Image missing in request', 404);
+
+            }
+        }
+        else {
+
+                return response('Not existing technology', 404);
+
+            }
+        
+        }
 
     /**
      * @SWG\Patch(
