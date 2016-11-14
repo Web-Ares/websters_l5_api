@@ -19,6 +19,14 @@ class TechnologyController extends Controller
     {
         $technology = Technology::all();
 
+        $directoryPath = base_path() . '/public/technologies/';
+
+        foreach ($technology as $item) {
+
+            $item->image = $directoryPath.$item->image;
+
+        }
+
         return response()->json($technology);
 
     }
@@ -189,16 +197,14 @@ class TechnologyController extends Controller
 
         if(!is_null($technology)){
 
-            
-            if($request->hasFile('img')) {
 
+            if($request->hasFile('img')) {
 
 
                 $v = Validator::make($request->all(), [
 //                    'img' => 'file|image|max:0.9'
                     'img' => 'required'
                 ]);
-
 
 
                 if ($v->fails()) {
@@ -227,7 +233,7 @@ class TechnologyController extends Controller
                         $directoryPath, $imageName
                     );
 
-                return response()->file($pathToFile);
+                return response()->json($pathToFile);
 
                 }
 
@@ -237,6 +243,7 @@ class TechnologyController extends Controller
 
             }
         }
+
         else {
 
                 return response('Not existing technology', 404);
@@ -273,9 +280,8 @@ class TechnologyController extends Controller
      *
      * )
      */
-    
-    
-    
+
+
     /**
      * Remove the specified resource from storage.
      *
