@@ -37,7 +37,11 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Position','user_position');
     }
 
-
+    public function technologies()
+    {
+        return $this->belongsToMany('App\Technology','user_technology');
+    }
+    
     public function hasRole($role)
     {
         if($this->role()->where('name',$role)->first()){

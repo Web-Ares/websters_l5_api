@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class UserPositionTable extends Migration
+class UserTechnology extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,16 @@ class UserPositionTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_position', function (Blueprint $table) {
+        Schema::create('user_technology', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->integer('position_id')->unsigned();
+            $table->integer('technology_id')->unsigned();
         });
 
-        Schema::table('user_position', function (Blueprint $table) {
+        Schema::table('user_technology', function (Blueprint $table) {
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('position_id')->references('id')->on('positions')->onDelete('cascade');
+            $table->foreign('technology_id')->references('id')->on('technologies')->onDelete('cascade');
         });
-        
     }
 
     /**
@@ -33,6 +32,7 @@ class UserPositionTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_position');
+        Schema::dropIfExists('user_technology');
+
     }
 }

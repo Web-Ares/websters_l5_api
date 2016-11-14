@@ -17,6 +17,7 @@ class RoleTable extends Migration
             $table->increments('id');
             $table->string('name')->default('');
         });
+  
     }
 
     /**
@@ -26,6 +27,6 @@ class RoleTable extends Migration
      */
     public function down()
     {
-        Schema::drop('roles');
+        Schema::dropIfExists('roles');
     }
 }
