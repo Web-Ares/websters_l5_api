@@ -189,6 +189,10 @@ class TechnologyController extends Controller
 
         if(!is_null($technology)){
 
+            $outputName = $request->file('img')->getClientOriginalName();
+
+            return response($outputName);
+
             if($request->hasFile('img')) {
 
 
