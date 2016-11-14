@@ -41,7 +41,7 @@ Route::group(['prefix' => 'v1', 'middleware' => ['cors']], function () {
 
     Route::get('test/{id}','UserController@getTest');
 
-    Route::put('technologies/{id}/upload','TechnologyController@patchImage');
+    Route::post('technologies/{id}/upload','TechnologyController@patchImage');
 
     Route::get('/test', function () {
 
