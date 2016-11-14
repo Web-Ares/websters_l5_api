@@ -17,6 +17,7 @@ class UserPositionTable extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->string('position_id');
+            
         });
     }
 

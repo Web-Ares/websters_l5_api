@@ -6,6 +6,7 @@ use App\Technology;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use File;
+use Validator;
 class TechnologyController extends Controller
 {
 
@@ -177,39 +178,57 @@ class TechnologyController extends Controller
     /**
      * Store a newly created resource in storage.
      *
+     * @param  Request $request
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
     
-    public function patchImage($id){
+    public function patchImage($id, Request $request){
 
     $technology = Technology::find($id);
 
         if(!is_null($technology)){
 
-            if(Input::hasFile('img')){
+            if($request->hasFile('img')) {
 
-                $file = Input::file('img');
 
-                File::delete('technologies/'.$technology->image);
 
-                $outputName= $file->getClientOriginalName();
+                $v = Validator::make($request->all(), [
+//                    'img' => 'file|image|max:0.9'
+                    'img' => 'required'
+                ]);
 
-                $imageName = time().'-'.$outputName;
 
-                $technology->image = $imageName;
-                
-                $technology->save();
 
-                $directoryPath = base_path() . '/public/technologies/';
+                if ($v->fails()) {
 
-                $pathToFile = $directoryPath.$imageName;
+                    return response('Not valid image', 404);
 
-                $file->move(
-                    $directoryPath , $imageName
-                );
-                
+                } else {
+
+                    $file = $request->file('img');
+
+                    File::delete('technologies/' . $technology->image);
+
+                    $outputName = $file->getClientOriginalName();
+
+                    $imageName = time() . '-' . $outputName;
+
+                    $technology->image = $imageName;
+
+                    $technology->save();
+
+                    $directoryPath = base_path() . '/public/technologies/';
+
+                    $pathToFile = $directoryPath . $imageName;
+
+                    $file->move(
+                        $directoryPath, $imageName
+                    );
+
                 return response()->file($pathToFile);
+
+                }
 
             } else {
 
@@ -222,7 +241,7 @@ class TechnologyController extends Controller
                 return response('Not existing technology', 404);
 
             }
-        
+
         }
 
     /**
