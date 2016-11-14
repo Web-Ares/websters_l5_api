@@ -191,7 +191,7 @@ class TechnologyController extends Controller
 
             $outputName = Input::file('img')->getClientOriginalName();
 
-            return response()->json($outputName);
+            return response()->json($request->all());
 
             if($request->hasFile('img')) {
 
