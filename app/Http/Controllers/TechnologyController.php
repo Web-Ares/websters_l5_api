@@ -19,7 +19,7 @@ class TechnologyController extends Controller
     {
         $technology = Technology::all();
 
-        $directoryPath = base_path() . '/public/technologies/';
+        $directoryPath = asset('/').'technologies/';
 
         foreach ($technology as $item) {
 
@@ -227,8 +227,8 @@ class TechnologyController extends Controller
 
                     $directoryPath = base_path() . '/public/technologies/';
 
-                    $pathToFile = $directoryPath . $imageName;
-
+                    $pathToFile = asset('/').'technologies/'.$imageName;
+                    
                     $file->move(
                         $directoryPath, $imageName
                     );
