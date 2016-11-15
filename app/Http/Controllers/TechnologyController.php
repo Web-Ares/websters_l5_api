@@ -85,7 +85,7 @@ class TechnologyController extends Controller
                 $technology->save();
 
                 $technology->image = null;
-                
+
                 return response()->json($technology);
             } else {
                 return response('Technology with this name already exist',404);
@@ -141,11 +141,22 @@ class TechnologyController extends Controller
         if(isset($requestName) && !empty($requestName)){
 
             if(!is_null($technology)){
-
+                $directoryPath = asset('/').'technologies/';
                 if($requestName != $technology->name){
 
                     $technology->name  = $requestName;
                     $technology->save();
+
+                    if(empty($technology->image)){
+                        $path = null;
+                    }
+                    else {
+
+                        $path = $directoryPath.$technology->image;
+                    }
+                    $technology->image = $path;
+
+                    
                     return response()->json($technology);
                 } else {
                     return response('Try to change on similar name',404);
