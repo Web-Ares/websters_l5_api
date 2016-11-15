@@ -22,7 +22,6 @@ class TechnologyController extends Controller
         $directoryPath = asset('/').'technologies/';
 
 
-
         foreach ($technology as $item) {
 
             if(empty($item->image)){
@@ -84,6 +83,9 @@ class TechnologyController extends Controller
                 $technology->name = $name;
                 $technology->image = '';
                 $technology->save();
+
+                $technology->image = null;
+                
                 return response()->json($technology);
             } else {
                 return response('Technology with this name already exist',404);
