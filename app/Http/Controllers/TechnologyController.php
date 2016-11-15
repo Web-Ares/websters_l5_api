@@ -21,10 +21,18 @@ class TechnologyController extends Controller
 
         $directoryPath = asset('/').'technologies/';
 
+
+
         foreach ($technology as $item) {
 
-            $item->image = $directoryPath.$item->image;
+            if(empty($item->image)){
+                $path = null;
+            }
+             else {
 
+                $path = $directoryPath.$item->image;
+             }
+            $item->image = $path;
         }
 
         return response()->json($technology);
