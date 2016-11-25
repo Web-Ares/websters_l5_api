@@ -240,6 +240,8 @@ class TechnologyController extends Controller
 
                     $outputName = $file->getClientOriginalName();
 
+                    $outputName = str_replace(' ','_',$outputName);
+
                     $imageName = time() . '-' . $outputName;
 
                     $technology->image = $imageName;

@@ -13,7 +13,7 @@ use App\Technology;
 class UserController extends Controller
 {
 
-    public function show($id){
+    public function show( $id = null  ){
         $message ='';
         if($id == 'me') {
 
@@ -22,14 +22,13 @@ class UserController extends Controller
             $user = User::where('remember_token', $code)->first();
 
         }
-        elseif($id == 'all') {
+        elseif(is_null($id)) {
 
             $user = User::all();
 
         }
         else {
             $user = User::where('id', $id)->first();
-
         }
 
 
@@ -219,22 +218,22 @@ class UserController extends Controller
         $positions_ids = $request->positions_ids;
 
         $role_id = 2;
+        $role = Role::find($role_id);
+        $technologies_ids = [2];
 
-        $technologies_ids = 1;
-
-        $positions_ids = [];
-
-
+        $positions_ids = [3];
 
         $user = User::find($user_id);
 
+        $user->positions()->sync($positions_ids);
 
-        $user->positions()->sync($positions_ids,false);;
+        $user->technologies()->sync($technologies_ids);
 
-        dd($user->positions);
-      
+        $role->users()->save($user);
 
-        return response()->json($file);
+        dd($user->positions_ids());
+
+        return response()->json($user);
 
         }
 
