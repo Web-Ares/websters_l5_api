@@ -2,37 +2,43 @@
 
 namespace App\Http\Controllers;
 
-use App\Position;
 use App\Role;
 use Illuminate\Http\Request;
 use App\User;
 use GuzzleHttp;
 use Validator;
-use App\Technology;
 
 class UserController extends Controller
 {
 
     public function show( $id = null  ){
+
         $message ='';
+
         if($id == 'me') {
 
             $code = \Request::header('Authorization');
 
             $user = User::where('remember_token', $code)->first();
+            $currentUser = $this->userFormat($user);
 
         }
         elseif(is_null($id)) {
 
-            $user = User::all();
+            $users = User::all();
+            foreach ($users as $user){
+
+                $currentUser[] = $this->userFormat($user);
+
+            }
 
         }
         else {
             $user = User::where('id', $id)->first();
+            $currentUser = $this->userFormat($user);
         }
 
-
-        return response()->json($user);
+        return response()->json($currentUser);
 
 
     }
@@ -107,11 +113,11 @@ class UserController extends Controller
 
                 mail($to, $subject, $message, $headers);
 
-                return response('User Created', 200);
+                $currentUser = $this->userFormat($user);
+
+                return response()->json($currentUser);
 
             }
-
-
 
         }
         else {
@@ -211,17 +217,19 @@ class UserController extends Controller
 
     public function getTest($id, Request $request){
 
-      
         $user_id = $id;
-        $role_id = $request->role_id;
-        $technologies_ids = $request->technologies_ids;
-        $positions_ids = $request->positions_ids;
 
-        $role_id = 2;
-        $role = Role::find($role_id);
+//        $role_id = $request->role_id;
+//        $technologies_ids = $request->technologies_ids;
+//        $positions_ids = $request->positions_ids;
+
+        $role_id = 1;
+
         $technologies_ids = [2];
 
-        $positions_ids = [3];
+        $positions_ids = [1,2,3];
+
+        $role = Role::find($role_id);
 
         $user = User::find($user_id);
 
@@ -231,10 +239,72 @@ class UserController extends Controller
 
         $role->users()->save($user);
 
-        dd($user->positions_ids());
+        $userCurrent = $this->userFormat($user);
 
-        return response()->json($user);
+        return response()->json($userCurrent);
 
         }
+    
+    public function update($id, Request $request){
 
+        $user_id = $id;
+
+//        $role_id = $request->role_id;
+//        $technologies_ids = $request->technologies_ids;
+//        $positions_ids = $request->positions_ids;
+
+        $role_id = 1;
+
+        $technologies_ids = [2];
+
+        $positions_ids = [1,2,3];
+     
+        $role = Role::find($role_id);
+
+        $user = User::find($user_id);
+
+        $user->positions()->sync($positions_ids);
+
+        $user->technologies()->sync($technologies_ids);
+
+        $role->users()->save($user);
+
+        $userCurrent = $this->userFormat($user);
+
+        return response()->json($userCurrent);
+
+    }
+    /**
+     * @SWG\Put(
+     *   path="/api/v1/users/{id}",
+     *     tags={"Technologies"},
+     *   summary="Update a technologies",
+     *     description="{Auth}",
+     *   @SWG\Response(
+     *     response=200,
+     *     description="Auth"
+     *   ),
+     *   @SWG\Response(
+     *     response="default",
+     *     description="an ""unexpected"" error"
+     *   ),
+     * @SWG\Parameter(
+    type="string",
+    name="Authorization",
+    in="header",
+    required=true),
+     *@SWG\Parameter(
+    type="string",
+    name="id",
+    in="path",
+    required=true),
+     *@SWG\Parameter(
+    type="string",
+    name="name",
+    in="query",
+    required=true),
+     *
+     *
+     * )
+     */
 }

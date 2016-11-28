@@ -44,8 +44,6 @@ Route::group(['prefix' => 'v1', 'middleware' => ['cors']], function () {
 
     Route::get('test/{id}','UserController@getTest');
 
-
-
     Route::get('/test', function () {
 
         return view('welcome');
