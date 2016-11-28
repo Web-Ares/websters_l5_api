@@ -229,6 +229,7 @@ class UserController extends Controller
 
         }
 
+
     public function update($id, Request $request){
         $user_id = $id;
        
