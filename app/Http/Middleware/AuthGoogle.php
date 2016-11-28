@@ -22,7 +22,7 @@ class AuthGoogle
     {
 
         $code = \Request::header('Authorization');
-      
+       
         if($code){
             
         $client = new Google_Client();
@@ -39,7 +39,7 @@ class AuthGoogle
                 \Session::flash('token', $token);
                 \Session::flash('refresh', $refresh);
                 \Session::flash('expires', $expires);
-
+              
                 return $next($request);
 
             } else {
