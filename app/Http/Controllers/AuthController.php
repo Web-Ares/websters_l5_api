@@ -33,15 +33,9 @@ class AuthController extends Controller
 
                 if(!is_null($currentUser)){
 
-                    $output = array();
-                    $output['token'] = $currentUser->remember_token;
-                    $output['user']['id'] = $currentUser->id;
-                    $output['user']['name'] = $currentUser->name;
-                    $output['user']['email'] = $currentUser->email;
-                    $output['user']['avatar'] = $currentUser->avatar;
-                    $output['user']['expires'] = $currentUser->expires;
+                    $currentUser = $this->userFormat($user);
 
-                    return response()->json($output);
+                    return response()->json($currentUser);
 
                 } else {
 

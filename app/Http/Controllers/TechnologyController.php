@@ -227,6 +227,8 @@ class TechnologyController extends Controller
 
                     $outputName = $file->getClientOriginalName();
 
+                    $outputName = str_replace(' ','_',$outputName);
+
                     $imageName = time() . '-' . $outputName;
 
                     $technology->image = $imageName;
@@ -236,12 +238,12 @@ class TechnologyController extends Controller
                     $directoryPath = base_path() . '/public/technologies/';
 
                     $pathToFile = asset('/').'technologies/'.$imageName;
-                    
+
                     $file->move(
                         $directoryPath, $imageName
                     );
 
-                return response()->json($pathToFile);
+                    return response()->json($pathToFile);
 
                 }
 

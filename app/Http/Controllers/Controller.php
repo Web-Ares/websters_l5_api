@@ -7,7 +7,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use App\User;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Google_Client;
 
 class Controller extends BaseController
@@ -23,11 +23,7 @@ class Controller extends BaseController
         if(!is_null($user)){
 
             $count = 0;
-            if($user->name!=$userData['name']){
-                $user->name = $userData['name'];
-                $count++;
-            }
-
+            
             if($user->avatar != $userData['picture']){
                 $user->avatar = $userData['picture'];
                 $count++;
@@ -93,6 +89,19 @@ class Controller extends BaseController
 
     }
 
+    public function userFormat($user){
+
+        $positions_ids = DB::table('user_position')->select('position_id')->where('user_id', '=', $user->ID)->get();
+
+        $technology_ids = DB::table('user_technology')->select('technology_id')->where('user_id', '=', $user->ID)->get();
+
+        $user['position_ids'] = $positions_ids;
+
+        $user['technology_ids'] = $technology_ids;
+
+        return $user;
+    }
+    
 }
 
 

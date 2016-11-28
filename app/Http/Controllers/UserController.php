@@ -13,27 +13,24 @@ use App\Technology;
 class UserController extends Controller
 {
 
-    public function show($id){
-        $message ='';
+    public function show($id = null){
+
         if($id == 'me') {
-
             $code = \Request::header('Authorization');
-
             $user = User::where('remember_token', $code)->first();
-
+            $currentUser = $this->userFormat($user);
         }
-        elseif($id == 'all') {
-
-            $user = User::all();
-
+        elseif(is_null($id)) {
+            $users = User::all();
+            foreach ($users as $user){
+                $currentUser[] = $this->userFormat($user);
+            }
         }
         else {
             $user = User::where('id', $id)->first();
-
+            $currentUser = $this->userFormat($user);
         }
-
-
-        return response()->json($user);
+        return response()->json($currentUser);
 
 
     }
@@ -107,8 +104,8 @@ class UserController extends Controller
                     'X-Mailer: PHP/' . phpversion();
 
                 mail($to, $subject, $message, $headers);
-
-                return response('User Created', 200);
+                $currentUser = $this->userFormat($user);
+                return response()->json($currentUser);
 
             }
 
@@ -212,30 +209,43 @@ class UserController extends Controller
 
     public function getTest($id, Request $request){
 
-      
+
         $user_id = $id;
-        $role_id = $request->role_id;
-        $technologies_ids = $request->technologies_ids;
-        $positions_ids = $request->positions_ids;
 
-        $role_id = 2;
+//        $role_id = $request->role_id;
+//        $technologies_ids = $request->technologies_ids;
+//        $positions_ids = $request->positions_ids;
+        $role_id = 1;
+        $technologies_ids = [2];
+        $positions_ids = [1,2,3];
 
-        $technologies_ids = 1;
-
-        $positions_ids = [];
-
-
-
+        $role = Role::find($role_id);
         $user = User::find($user_id);
-
-
-        $user->positions()->sync($positions_ids,false);;
-
-        dd($user->positions);
-      
-
-        return response()->json($file);
+        $user->positions()->sync($positions_ids);
+        $user->technologies()->sync($technologies_ids);
+        $role->users()->save($user);
+        $userCurrent = $this->userFormat($user);
+        return response()->json($userCurrent);
 
         }
 
+    public function update($id, Request $request){
+        $user_id = $id;
+       
+//        $role_id = $request->role_id;
+//        $technologies_ids = $request->technologies_ids;
+//        $positions_ids = $request->positions_ids;
+        $role_id = 1;
+        $technologies_ids = [2];
+        $positions_ids = [1,2,3];
+
+        $role = Role::find($role_id);
+        $user = User::find($user_id);
+        $user->positions()->sync($positions_ids);
+        $user->technologies()->sync($technologies_ids);
+        $role->users()->save($user);
+        $userCurrent = $this->userFormat($user);
+        return response()->json($userCurrent);
+    }
+    
 }

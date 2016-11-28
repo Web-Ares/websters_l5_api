@@ -15,25 +15,28 @@ use Illuminate\Http\Request;
 
 
 Route::group(['prefix' => 'v1', 'middleware' => ['cors','google.check']], function () {
-    
-    Route::resource('users','UserController', ['only' => ['store','show','destroy','update']]);
-    
+
+    Route::resource('users','UserController', ['only' => ['store','destroy','update']]);
+
     Route::post('users/create','UserController@create');
-    
+
+    Route::get('users/{id?}','UserController@show');
+
     Route::get('roles','RoleController@getRoles');
-    
+
     Route::resource('positions','PositionController', ['only' => ['store','index','destroy','update']]);
-    
+
     Route::resource('technologies','TechnologyController', ['only' => ['store','index','destroy']]);
 
     Route::put('technologies/{id}','TechnologyController@updateName');
-    
+
+    Route::post('technologies/{id}/upload','TechnologyController@patchImage');
 });
 
 Route::group(['prefix' => 'v1', 'middleware' => ['cors','google.auth']], function () {
 
     Route::post('/auth',['uses' => 'AuthController@getLogin', 'as' => 'auth'])->middleware('google.auth');
-    
+
 });
 
 
@@ -41,7 +44,7 @@ Route::group(['prefix' => 'v1', 'middleware' => ['cors']], function () {
 
     Route::get('test/{id}','UserController@getTest');
 
-    Route::post('technologies/{id}/upload','TechnologyController@patchImage');
+
 
     Route::get('/test', function () {
 
@@ -49,4 +52,3 @@ Route::group(['prefix' => 'v1', 'middleware' => ['cors']], function () {
     });
 
 });
-
