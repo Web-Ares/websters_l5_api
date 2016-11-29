@@ -212,18 +212,32 @@ class UserController extends Controller
 
         $user_id = $id;
 
-//        $role_id = $request->role_id;
-//        $technologies_ids = $request->technologies_ids;
-//        $positions_ids = $request->positions_ids;
-        $role_id = 1;
-        $technologies_ids = [2];
-        $positions_ids = [1,2,3];
+        $role_id = $request->role_id;
+        $technologies_ids = $request->technologies_ids;
+        $positions_ids = $request->positions_ids;
+
+        if($technologies_ids!=''){
+            $technologies_ids = explode(',' , $technologies_ids);
+        } else {
+            $technologies_ids = [];
+        }
+
+        if($positions_ids!=''){
+            $positions_ids = explode(',' , $positions_ids);
+        } else {
+            $positions_ids = [];
+        }
 
         $role = Role::find($role_id);
         $user = User::find($user_id);
         $user->positions()->sync($positions_ids);
         $user->technologies()->sync($technologies_ids);
-        $role->users()->save($user);
+
+        if($role_id){
+            $role->users()->save($user);
+        }
+
+
         $userCurrent = $this->userFormat($user);
         return response()->json($userCurrent);
 
@@ -232,19 +246,36 @@ class UserController extends Controller
 
     public function update($id, Request $request){
         $user_id = $id;
-       
-//        $role_id = $request->role_id;
-//        $technologies_ids = $request->technologies_ids;
-//        $positions_ids = $request->positions_ids;
-        $role_id = 1;
-        $technologies_ids = [2];
-        $positions_ids = [1,2,3];
+
+        $role_id = $request->role_id;
+        $technologies_ids = $request->technologies_ids;
+        $positions_ids = $request->positions_ids;
 
         $role = Role::find($role_id);
         $user = User::find($user_id);
-        $user->positions()->sync($positions_ids);
-        $user->technologies()->sync($technologies_ids);
-        $role->users()->save($user);
+
+        if($technologies_ids){
+            if($technologies_ids!=''){
+                $technologies_ids = explode(',' , $technologies_ids);
+            } else {
+                $technologies_ids = [];
+            }
+            $user->technologies()->sync($technologies_ids);
+        }
+
+        if($positions_ids){
+            if($positions_ids!=''){
+                $positions_ids = explode(',' , $positions_ids);
+            } else {
+                $positions_ids = [];
+            }
+            $user->positions()->sync($positions_ids);
+        }
+
+        if($role_id){
+            $role->users()->save($user);
+        }
+
         $userCurrent = $this->userFormat($user);
         return response()->json($userCurrent);
     }

@@ -91,9 +91,9 @@ class Controller extends BaseController
 
     public function userFormat($user){
 
-        $positions_ids = DB::table('user_position')->select('position_id')->where('user_id', '=', $user->ID)->get();
-
-        $technology_ids = DB::table('user_technology')->select('technology_id')->where('user_id', '=', $user->ID)->get();
+        $positions_ids = DB::table('user_position')->select('position_id')->where('user_id', '=', $user->id)->get();
+    
+        $technology_ids = DB::table('user_technology')->select('technology_id')->where('user_id', '=', $user->id)->get();
 
         $user['position_ids'] = $positions_ids;
 
