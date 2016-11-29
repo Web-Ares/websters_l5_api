@@ -210,14 +210,14 @@ class UserController extends Controller
     public function getTest($id, Request $request){
 
         $flag = false;
-        $user_id = $id;
-        $role_id = $request->role_id;
-        $technologies_ids = $request->technologies_ids;
-        $positions_ids = $request->positions_ids;
+        $user_id = 1;
+        $role_id = 2;
+        $technologies_ids = '1,2';
+        $positions_ids = '2';
 
-        $name = $request->name;
-        $name_ua = $request->name_ua;
-        $name_ru = $request->name_ru;
+        $name = '123';
+        $name_ua = '123123';
+        $name_ru = '233';
 
 
         $role = Role::find($role_id);
@@ -314,7 +314,7 @@ class UserController extends Controller
             $user->technologies()->sync($technologies_ids);
         }
 
-        return response()->json($technologies_ids);
+
         if($positions_ids){
             if($positions_ids!=''){
                 $positions_ids = explode(',' , $positions_ids);
