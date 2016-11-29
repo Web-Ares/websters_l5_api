@@ -314,6 +314,7 @@ class UserController extends Controller
             $user->technologies()->sync($technologies_ids);
         }
 
+        return response()->json($technologies_ids);
         if($positions_ids){
             if($positions_ids!=''){
                 $positions_ids = explode(',' , $positions_ids);
