@@ -210,49 +210,41 @@ class UserController extends Controller
     public function getTest($id, Request $request){
 
 
-        $user_id = $id;
-
-        $role_id = $request->role_id;
-        $technologies_ids = $request->technologies_ids;
-        $positions_ids = $request->positions_ids;
-
-        if($technologies_ids!=''){
-            $technologies_ids = explode(',' , $technologies_ids);
-        } else {
-            $technologies_ids = [];
-        }
-
-        if($positions_ids!=''){
-            $positions_ids = explode(',' , $positions_ids);
-        } else {
-            $positions_ids = [];
-        }
-
-        $role = Role::find($role_id);
-        $user = User::find($user_id);
-        $user->positions()->sync($positions_ids);
-        $user->technologies()->sync($technologies_ids);
-
-        if($role_id){
-            $role->users()->save($user);
-        }
-
-
-        $userCurrent = $this->userFormat($user);
-        return response()->json($userCurrent);
 
         }
 
 
     public function update($id, Request $request){
+        $flag = false;
         $user_id = $id;
-
         $role_id = $request->role_id;
         $technologies_ids = $request->technologies_ids;
         $positions_ids = $request->positions_ids;
 
+        $name = $request->name;
+        $name_ua = $request->name_ua;
+        $name_ru = $request->name_ru;
+
+
         $role = Role::find($role_id);
         $user = User::find($user_id);
+
+        if($name){
+            $flag = true;
+            $user->name = $name;
+        }
+
+        if($name_ua){
+            $flag = true;
+            $user->name_ua = $name_ua;
+        }
+
+        if($name_ru){
+            $flag = true;
+            $user->name_ru = $name_ru;
+        }
+
+
 
         if($technologies_ids){
             if($technologies_ids!=''){
@@ -273,9 +265,14 @@ class UserController extends Controller
         }
 
         if($role_id){
+            $flag = false;
             $role->users()->save($user);
         }
 
+        if($flag){
+            $user->save();
+        }
+        
         $userCurrent = $this->userFormat($user);
         return response()->json($userCurrent);
     }
