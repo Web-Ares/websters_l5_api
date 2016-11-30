@@ -20,11 +20,6 @@ class UserController extends Controller
             $user = User::where('remember_token', $code)->first();
             $currentUser = $this->userFormat($user);
             
-            $output['token'] = $code;
-            $output['user'] = $currentUser;
-
-            $currentUser = $output;
-            
         }
         elseif(is_null($id)) {
             $users = User::all();
