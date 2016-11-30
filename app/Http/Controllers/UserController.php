@@ -19,6 +19,12 @@ class UserController extends Controller
             $code = \Request::header('Authorization');
             $user = User::where('remember_token', $code)->first();
             $currentUser = $this->userFormat($user);
+            
+            $output['token'] = $code;
+            $output['user'] = $currentUser;
+
+            $currentUser = $output;
+            
         }
         elseif(is_null($id)) {
             $users = User::all();
