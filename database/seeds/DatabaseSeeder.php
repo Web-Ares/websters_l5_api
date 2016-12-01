@@ -32,26 +32,26 @@ class UsersTableSeeder extends Seeder
 
         $role_user = Role::find(2);
         
-        $user = new User();
-        $user->email = "alexksnikol@gmail.com";
-        $user->remember_token = str_random(100);
-        $role_user->users()->save($user);
-        
-
+//        $user = new User();
+//        $user->email = "alexksnikol@gmail.com";
+//        $user->remember_token = str_random(100);
+//        $role_user->users()->save($user);
+//
+//
         $user = new User();
         $user->email = "petruninnikolay@gmail.com";
         $user->remember_token = str_random(100);
         $role_user->users()->save($user);
-
-        $user = new User();
-        $user->email = "london.tokyo.madrid@gmail.com";
-        $user->remember_token = str_random(100);
-        $role_user->users()->save($user);
-
-        $user = new User();
-        $user->email = "snike1985@gmail.com";
-        $user->remember_token = str_random(100);
-        $role_user->users()->save($user);
+//
+//        $user = new User();
+//        $user->email = "london.tokyo.madrid@gmail.com";
+//        $user->remember_token = str_random(100);
+//        $role_user->users()->save($user);
+//
+//        $user = new User();
+//        $user->email = "snike1985@gmail.com";
+//        $user->remember_token = str_random(100);
+//        $role_user->users()->save($user);
 
     }
     
