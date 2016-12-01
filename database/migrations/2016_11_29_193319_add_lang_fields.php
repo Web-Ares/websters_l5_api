@@ -27,7 +27,8 @@ class AddLangFields extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            //
+            $table->dropColumn(['name_ua']);
+            $table->dropColumn(['name_ru']);
         });
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTechnologiesTable extends Migration
+class AddForeighnKeyTechnology extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,14 @@ class CreateTechnologiesTable extends Migration
      */
     public function up()
     {
-        Schema::create('technologies', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
-            $table->string('image')->nullable();
+        Schema::table('technologies', function (Blueprint $table) {
+            $table->integer('position_id')->unsigned()->nullable();
         });
+
+        Schema::table('technologies', function (Blueprint $table) {
+            $table->foreign('position_id')->references('id')->on('positions');
+        });
+        
     }
 
     /**
@@ -27,6 +30,7 @@ class CreateTechnologiesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('technologies');
+        
+
     }
 }

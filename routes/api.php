@@ -24,6 +24,8 @@ Route::group(['prefix' => 'v1', 'middleware' => ['cors','google.check']], functi
 
     Route::get('roles','RoleController@getRoles');
 
+    Route::delete('roles/{id}','RoleController@deleteRoles');
+
     Route::resource('positions','PositionController', ['only' => ['store','index','destroy','update']]);
 
     Route::resource('technologies','TechnologyController', ['only' => ['store','index','destroy']]);
@@ -43,9 +45,7 @@ Route::group(['prefix' => 'v1', 'middleware' => ['cors','google.auth']], functio
 Route::group(['prefix' => 'v1', 'middleware' => ['cors']], function () {
 
     Route::get('test/{id}','UserController@getTest');
-
-
-
+    
     Route::get('/test', function () {
 
         return view('welcome');

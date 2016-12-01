@@ -14,6 +14,10 @@ class Position extends Model
         return $this->belongsToMany('App\User','user_position');
     }
 
+    public function technologies()
+    {
+        return $this->hasMany('App\Technology');
+    }
 
 }
 

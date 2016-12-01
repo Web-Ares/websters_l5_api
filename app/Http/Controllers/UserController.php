@@ -74,6 +74,10 @@ class UserController extends Controller
     public function store(Request $request){
 
         $email = $request->email;
+        $name = $request->name;
+        $name_ua = $request->name_ua;
+        $name_ru = $request->name_ru;
+
 
         if(!is_null($email) && isset($email) && !empty($email)){
 
@@ -97,14 +101,6 @@ class UserController extends Controller
                 $role_user->users()->save($user);
 
 
-                $to      = $email;
-                $subject = 'Welcome to Websters Team';
-                $message = 'Its a invite to our application, forward here for <a href="">login</a>';
-                $headers = 'From: webmaster@example.com' . "\r\n" .
-                    'Reply-To: office@websters' . "\r\n" .
-                    'X-Mailer: PHP/' . phpversion();
-
-                mail($to, $subject, $message, $headers);
                 $currentUser = $this->userFormat($user);
                 return response()->json($currentUser);
 
@@ -155,6 +151,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function destroy($id)
     {
         
@@ -210,68 +207,18 @@ class UserController extends Controller
 
     public function getTest($id, Request $request){
 
-        $flag = false;
-        $user_id = 1;
-        $role_id = 2;
-        $technologies_ids = '1,2';
-        $positions_ids = '2';
+        $position_id = 2;
+        $technology_id = 1;
+        $position = Position::find($position_id);
+        $technology = Technology::find($technology_id);
 
-        $name = '123';
-        $name_ua = '123123';
-        $name_ru = '233';
+        $position->technologies()->save($technology);
 
-
-        $role = Role::find($role_id);
-        $user = User::find($user_id);
-
-        if($name){
-            $flag = true;
-            $user->name = $name;
-        }
-
-        if($name_ua){
-            $flag = true;
-            $user->name_ua = $name_ua;
-        }
-
-        if($name_ru){
-            $flag = true;
-            $user->name_ru = $name_ru;
-        }
+        $tech_post = $technology->position;
 
 
-
-        if($technologies_ids){
-            if($technologies_ids!=''){
-                $technologies_ids = explode(',' , $technologies_ids);
-            } else {
-                $technologies_ids = [];
-            }
-            $user->technologies()->sync($technologies_ids);
-        }
-
-        if($positions_ids){
-            if($positions_ids!=''){
-                $positions_ids = explode(',' , $positions_ids);
-            } else {
-                $positions_ids = [];
-            }
-            $user->positions()->sync($positions_ids);
-        }
-
-        if($role_id){
-            $flag = false;
-            $role->users()->save($user);
-        }
-
-        if($flag){
-            $user->save();
-        }
-
-        $userCurrent = $this->userFormat($user);
-        return response()->json($userCurrent);
-
-        }
+        return $tech_post->name_ua;
+    }
 
 
     public function update($id, Request $request){

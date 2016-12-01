@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTechnologiesTable extends Migration
+class RenameNameColumn extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,8 @@ class CreateTechnologiesTable extends Migration
      */
     public function up()
     {
-        Schema::create('technologies', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
-            $table->string('image')->nullable();
+        Schema::table('users', function (Blueprint $table) {
+            $table->renameColumn('name', 'name_');
         });
     }
 
@@ -27,6 +25,8 @@ class CreateTechnologiesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('technologies');
+        Schema::table('users', function (Blueprint $table) {
+            //
+        });
     }
 }

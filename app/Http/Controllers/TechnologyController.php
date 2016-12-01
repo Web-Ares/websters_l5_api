@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Position;
 use App\Technology;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
@@ -72,6 +73,8 @@ class TechnologyController extends Controller
     public function store(Request $request)
     {
         $name = $request->name;
+        $position_id = $request->position_id;
+
 
         if(isset($name) && !empty($name)){
 
@@ -85,6 +88,15 @@ class TechnologyController extends Controller
                 $technology->save();
 
                 $technology->image = null;
+
+                if($position_id){
+                    $position = Position::find($position_id);
+
+                    if(!is_null($position)){
+                        $position->technologies()->save($technology);
+                    }
+
+                }
 
                 return response()->json($technology);
             } else {

@@ -12,6 +12,11 @@ class Technology extends Model
     {
         return $this->belongsToMany('App\Users','user_technology');
     }
+
+    public function position()
+    {
+        return $this->belongsTo('App\Position');
+    }
     
 }
 

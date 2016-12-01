@@ -36,5 +36,27 @@ class RoleController extends Controller
      *
      * )
      */
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    
+    public function deleteRoles($id){
+
+        $role = Role::where('id',$id)->first();
+        if(!is_null($role)){
+            $role->delete();
+
+            return response('Role was deleted',204);
+
+        } else {
+            return response('Missing in DB',404);
+        }
+
+    }
+
 }
 
