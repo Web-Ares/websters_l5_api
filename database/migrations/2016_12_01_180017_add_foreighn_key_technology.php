@@ -30,7 +30,14 @@ class AddForeighnKeyTechnology extends Migration
      */
     public function down()
     {
-        
+      
+
+        Schema::table('technologies', function (Blueprint $table) {
+
+            $table->dropForeign('technologies_position_id_foreign');
+            $table->dropColumn('position_id');
+        });
+
 
     }
 }
